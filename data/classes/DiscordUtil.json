@@ -1,0 +1,28 @@
+{
+  "statics": [
+    { "name": "currentID", "type": "String", "description": "The current Discord client ID. Setting this reinitializes the Discord connection." },
+    { "name": "ready", "type": "Bool", "description": "True if Discord RPC is connected and ready." },
+    { "name": "initialized", "type": "Bool", "description": "True if Discord RPC has been initialized." },
+    { "name": "user", "type": "DUser", "description": "The currently connected Discord user." },
+    { "name": "lastPresence", "type": "DPresence", "description": "The last presence that was set." },
+    { "name": "config", "type": "DiscordJson", "description": "The loaded Discord config (clientID, logoKey, logoText)." },
+    { "name": "script", "type": "Script", "description": "The Discord script loaded from data/discord." },
+    { "name": "anyResponse", "type": "FlxTypedSignal<String->Void>", "description": "Signal dispatched on any raw Discord response." }
+  ],
+  "members": [],
+  "functions": [
+    { "name": "init", "args": [], "returns": "Void", "description": "Initializes Discord RPC and starts the callback thread." },
+    { "name": "reloadJsonData", "args": [], "returns": "Void", "description": "Reloads the Discord config JSON from assets." },
+    { "name": "loadScript", "args": [], "returns": "Void", "description": "Loads or reloads the Discord hscript from data/discord." },
+    { "name": "changePresence", "args": [{ "name": "details", "type": "String", "optional": false }, { "name": "state", "type": "String", "optional": false }, { "name": "smallImageKey", "type": "String", "optional": true }], "returns": "Void", "description": "Sets a simple Discord presence with details and state." },
+    { "name": "changeSongPresence", "args": [{ "name": "details", "type": "String", "optional": false }, { "name": "state", "type": "String", "optional": false }, { "name": "audio", "type": "FlxSound", "optional": false }, { "name": "smallImageKey", "type": "String", "optional": true }], "returns": "Void", "description": "Sets presence with a song timer based on the current audio position." },
+    { "name": "changePresenceSince", "args": [{ "name": "details", "type": "String", "optional": false }, { "name": "state", "type": "String", "optional": false }, { "name": "smallImageKey", "type": "String", "optional": true }, { "name": "time", "type": "Float", "optional": true }], "returns": "Void", "description": "Sets presence with a start timestamp." },
+    { "name": "changePresenceAdvanced", "args": [{ "name": "data", "type": "DPresence", "optional": false }], "returns": "Void", "description": "Sets a fully customized Discord presence." },
+    { "name": "clearPresence", "args": [], "returns": "Void", "description": "Clears the current Discord presence." },
+    { "name": "shutdown", "args": [], "returns": "Void", "description": "Shuts down Discord RPC and destroys the script." },
+    { "name": "respond", "args": [{ "name": "userId", "type": "String", "optional": false }, { "name": "reply", "type": "Int", "optional": false }], "returns": "Void", "description": "Responds to a join request. Use REPLY_YES, REPLY_NO, or REPLY_IGNORE." },
+    { "name": "call", "args": [{ "name": "name", "type": "String", "optional": false }, { "name": "args", "type": "Array<Dynamic>", "optional": true }], "returns": "Void", "description": "Calls a function on the Discord script." },
+    { "name": "sendCustomCommand", "args": [{ "name": "data", "type": "Dynamic", "optional": false }], "returns": "Void", "description": "Sends a raw custom command to Discord RPC." },
+    { "name": "setDebugMode", "args": [{ "name": "mode", "type": "Bool", "optional": false }], "returns": "Void", "description": "Enables or disables Discord RPC debug mode." }
+  ]
+}

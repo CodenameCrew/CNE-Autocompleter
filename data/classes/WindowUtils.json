@@ -1,0 +1,17 @@
+{
+  "statics": [
+    { "name": "title", "type": "String", "description": "The current window title. Setting this automatically calls updateTitle()." },
+    { "name": "prefix", "type": "String", "description": "Prefix prepended to the window title. Setting this automatically calls updateTitle()." },
+    { "name": "suffix", "type": "String", "description": "Suffix appended to the window title. Setting this automatically calls updateTitle()." },
+    { "name": "preventClosing", "type": "Bool", "description": "If true, cancels the first window close attempt." },
+    { "name": "onClosing", "type": "Void->Void", "description": "Callback fired when the window is closing." }
+  ],
+  "members": [],
+  "functions": [
+    { "name": "resetClosing", "args": [], "returns": "Void", "description": "Resets the internal closing flag so preventClosing works again." },
+    { "name": "resetTitle", "args": [], "returns": "Void", "description": "Resets the window title to the app name and clears prefix and suffix." },
+    { "name": "resetAffixes", "args": [{ "name": "update", "type": "Bool", "optional": true }], "returns": "Void", "description": "Clears prefix and suffix. Optionally updates the window title immediately." },
+    { "name": "setWindow", "args": [{ "name": "title", "type": "String", "optional": true }, { "name": "image", "type": "String", "optional": true }], "returns": "Void", "description": "Sets the window title and icon. Falls back to mod name or app title if title is null." },
+    { "name": "updateTitle", "args": [], "returns": "Void", "description": "Updates the actual OS window title to prefix + title + suffix." }
+  ]
+}

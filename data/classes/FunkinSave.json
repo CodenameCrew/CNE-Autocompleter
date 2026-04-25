@@ -1,0 +1,75 @@
+{
+  "statics": [
+    { "name": "highscores", "type": "Map<HighscoreEntry, SongScore>", "description": "Stores all highscore entries mapped to their scores." },
+    { "name": "save", "type": "FlxSave", "description": "The underlying FlxSave instance." }
+  ],
+  "functions": [
+    { "name": "init", "args": [], "returns": "Void", "description": "Initializes the save file and binds it. Also registers an auto-save on app exit." },
+    { "name": "load", "args": [], "returns": "Void", "description": "Loads save data and deserializes highscores into the highscores map." },
+    { "name": "flush", "args": [], "returns": "Void", "description": "Serializes highscores and writes all save data to disk." },
+    {
+      "name": "getSongHighscore",
+      "args": [
+        { "name": "name", "type": "String", "optional": false },
+        { "name": "diff", "type": "String", "optional": false },
+        { "name": "variation", "type": "String", "optional": true },
+        { "name": "changes", "type": "Array<HighscoreChange>", "optional": true }
+      ],
+      "returns": "SongScore",
+      "description": "Returns the highscore for a song. Returns a blank score if none exists."
+    },
+    {
+      "name": "setSongHighscore",
+      "args": [
+        { "name": "name", "type": "String", "optional": false },
+        { "name": "diff", "type": "String", "optional": false },
+        { "name": "variation", "type": "String", "optional": true },
+        { "name": "highscore", "type": "SongScore", "optional": false },
+        { "name": "changes", "type": "Array<HighscoreChange>", "optional": true },
+        { "name": "force", "type": "Bool", "optional": true }
+      ],
+      "returns": "Bool",
+      "description": "Sets the highscore for a song. Only overwrites if the new score is higher, unless force is true."
+    },
+    {
+      "name": "getWeekHighscore",
+      "args": [
+        { "name": "name", "type": "String", "optional": false },
+        { "name": "diff", "type": "String", "optional": false }
+      ],
+      "returns": "SongScore",
+      "description": "Returns the highscore for a story week."
+    },
+    {
+      "name": "setWeekHighscore",
+      "args": [
+        { "name": "name", "type": "String", "optional": false },
+        { "name": "diff", "type": "String", "optional": false },
+        { "name": "highscore", "type": "SongScore", "optional": false },
+        { "name": "force", "type": "Bool", "optional": true }
+      ],
+      "returns": "Bool",
+      "description": "Sets the highscore for a story week. Only overwrites if the new score is higher, unless force is true."
+    },
+    {
+      "name": "getSongEntry",
+      "args": [
+        { "name": "name", "type": "String", "optional": false },
+        { "name": "diff", "type": "String", "optional": false },
+        { "name": "variation", "type": "String", "optional": true },
+        { "name": "changes", "type": "Array<HighscoreChange>", "optional": true }
+      ],
+      "returns": "HighscoreEntry",
+      "description": "Constructs a HSongEntry key for use in the highscores map."
+    },
+    {
+      "name": "getWeekEntry",
+      "args": [
+        { "name": "name", "type": "String", "optional": false },
+        { "name": "diff", "type": "String", "optional": false }
+      ],
+      "returns": "HighscoreEntry",
+      "description": "Constructs a HWeekEntry key for use in the highscores map."
+    }
+  ]
+}
