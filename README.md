@@ -61,6 +61,6 @@ NOTE : If you don't know how to install dependencies use `npm install`
 
 ## Compiling and Editing the source
 1. Install [npm](https://nodejs.org/en/download/)
-2. Clone this repo with ```git clone https://github.com/CodenameCrew/CNE-Autocomplete.git```
+2. Clone this repo with ```git clone https://github.com/CodenameCrew/CNE-Autocompleter.git```
 3. To install all the libraries run ```npm install```
 4. And to compile run ```npm run compile``` (or press ``F5``)
