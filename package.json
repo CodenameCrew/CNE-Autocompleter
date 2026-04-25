@@ -1,13 +1,13 @@
 {
-  "name": "codename-autocomplete",
-  "displayName": "Codename Autocomplete",
+  "name": "codename-autocompleter",
+  "displayName": "Codename Autocompleter",
   "description": "",
   "version": "0.6.1",
   "engines": {
     "vscode": "^1.96.0"
   },
   "icon": "images/icon.png",
-  "publisher": "furo",
+  "publisher": "HeroEyad",
   "repository": {
     "type": "git",
     "url": "https://github.com/CodenameCrew/CNE-Autocomplete"

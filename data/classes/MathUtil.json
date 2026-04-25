@@ -1,0 +1,23 @@
+{
+  "statics": [
+    { "name": "EULER", "type": "Float", "description": "Euler's number (2.718281828459)." }
+  ],
+  "members": [],
+  "functions": [
+    { "name": "maxInt", "args": [{ "name": "args", "type": "Int", "optional": false }], "returns": "Int", "description": "Returns the maximum value among the given Int arguments." },
+    { "name": "minInt", "args": [{ "name": "args", "type": "Int", "optional": false }], "returns": "Int", "description": "Returns the minimum value among the given Int arguments." },
+    { "name": "max", "args": [{ "name": "args", "type": "Float", "optional": false }], "returns": "Float", "description": "Returns the maximum value among the given Float arguments. Use maxSmart instead at compile time." },
+    { "name": "min", "args": [{ "name": "args", "type": "Float", "optional": false }], "returns": "Float", "description": "Returns the minimum value among the given Float arguments. Use minSmart instead at compile time." },
+    { "name": "lessThan", "args": [{ "name": "a", "type": "Float", "optional": false }, { "name": "b", "type": "Float", "optional": false }, { "name": "margin", "type": "Float", "optional": true }], "returns": "Bool", "description": "Returns true if a is less than b within a margin of error (default 0.0000001)." },
+    { "name": "lessThanEqual", "args": [{ "name": "a", "type": "Float", "optional": false }, { "name": "b", "type": "Float", "optional": false }, { "name": "margin", "type": "Float", "optional": true }], "returns": "Bool", "description": "Returns true if a is less than or equal to b within a margin of error." },
+    { "name": "greaterThan", "args": [{ "name": "a", "type": "Float", "optional": false }, { "name": "b", "type": "Float", "optional": false }, { "name": "margin", "type": "Float", "optional": true }], "returns": "Bool", "description": "Returns true if a is greater than b within a margin of error." },
+    { "name": "greaterThanEqual", "args": [{ "name": "a", "type": "Float", "optional": false }, { "name": "b", "type": "Float", "optional": false }, { "name": "margin", "type": "Float", "optional": true }], "returns": "Bool", "description": "Returns true if a is greater than or equal to b within a margin of error." },
+    { "name": "equal", "args": [{ "name": "a", "type": "Float", "optional": false }, { "name": "b", "type": "Float", "optional": false }, { "name": "margin", "type": "Float", "optional": true }], "returns": "Bool", "description": "Returns true if a is approximately equal to b within a margin of error." },
+    { "name": "notEqual", "args": [{ "name": "a", "type": "Float", "optional": false }, { "name": "b", "type": "Float", "optional": false }, { "name": "margin", "type": "Float", "optional": true }], "returns": "Bool", "description": "Returns true if a is not approximately equal to b within a margin of error." },
+    { "name": "smoothStep", "args": [{ "name": "edge0", "type": "Float", "optional": false }, { "name": "edge1", "type": "Float", "optional": false }, { "name": "x", "type": "Float", "optional": false }], "returns": "Float", "description": "Returns a smooth Hermite interpolation between 0 and 1." },
+    { "name": "inverseLerp", "args": [{ "name": "a", "type": "Float", "optional": false }, { "name": "b", "type": "Float", "optional": false }, { "name": "v", "type": "Float", "optional": false }], "returns": "Float", "description": "Returns the inverse lerp of v between a and b." },
+    { "name": "fract", "args": [{ "name": "v", "type": "Float", "optional": false }], "returns": "Float", "description": "Returns the fractional part of v." },
+    { "name": "maxSmart", "args": [{ "name": "args", "type": "Expr", "optional": false }], "returns": "Expr", "description": "Compile-time macro shortcut to Math.max with infinite arguments. Does not work in hscript." },
+    { "name": "minSmart", "args": [{ "name": "args", "type": "Expr", "optional": false }], "returns": "Expr", "description": "Compile-time macro shortcut to Math.min with infinite arguments. Does not work in hscript." }
+  ]
+}
