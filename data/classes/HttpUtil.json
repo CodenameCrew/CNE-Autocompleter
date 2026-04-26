@@ -1,11 +1,30 @@
 {
   "statics": [
-    { "name": "userAgent", "type": "String", "description": "The User-Agent header sent with all HTTP requests." }
+    {
+      "name": "userAgent",
+      "type": "String",
+      "description": "The User-Agent header sent with all HTTP requests."
+    }
   ],
   "members": [],
   "functions": [
-    { "name": "requestText", "args": [{ "name": "url", "type": "String", "optional": false }], "returns": "String", "description": "Makes an HTTP GET request and returns the response as a String. Follows redirects automatically." },
-    { "name": "requestBytes", "args": [{ "name": "url", "type": "String", "optional": false }], "returns": "haxe.io.Bytes", "description": "Makes an HTTP GET request and returns the response as Bytes. Follows redirects automatically." },
-    { "name": "hasInternet", "args": [], "returns": "Bool", "description": "Returns true if an internet connection is available by pinging Google." }
+    {
+      "name": "requestText",
+      "args": [{ "name": "url", "type": "String", "optional": false }],
+      "returns": "String",
+      "description": "Makes an HTTP GET request and returns the response as a String. Follows redirects automatically."
+    },
+    {
+      "name": "requestBytes",
+      "args": [{ "name": "url", "type": "String", "optional": false }],
+      "returns": "haxe.io.Bytes",
+      "description": "Makes an HTTP GET request and returns the response as Bytes. Follows redirects automatically."
+    },
+    {
+      "name": "hasInternet",
+      "args": [],
+      "returns": "Bool",
+      "description": "Returns true if an internet connection is available by pinging Google."
+    }
   ]
 }

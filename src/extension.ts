@@ -78,6 +78,11 @@ const OTHER_HAXE_EXT: vscode.DocumentSelector = [
     { pattern: '**/*.pack' }
 ];
 
+const MODPACK_INI_SELECTOR: vscode.DocumentSelector = [
+    { pattern: '**/modpack.ini' },
+    { pattern: '**/.modpack.ini' },
+];
+
 function loadClassData(extensionPath: string, className: string): ClassData | null {
     if (classCache.has(className)) return classCache.get(className)!;
     const filePath = path.join(extensionPath, 'data', 'classes', `${className}.json`);
@@ -99,6 +104,15 @@ function loadClassData(extensionPath: string, className: string): ClassData | nu
     } catch { return null; }
 }
 
+function loadFlags(extensionPath: string): ClassStatic[] {
+    const filePath = path.join(extensionPath, 'data', 'classes', 'Flags.json');
+    if (!fs.existsSync(filePath)) return [];
+    try {
+        const data: ClassData = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+        return data.statics ?? [];
+    } catch { return []; }
+}
+
 function formatSignature(fn: ClassFunction): string {
     const args = fn.args.map(a => `${a.optional ? '?' : ''}${a.name}:${a.type}`).join(', ');
     return `${fn.name}(${args}):${fn.returns}`;
@@ -111,19 +125,19 @@ function buildClassHover(className: string, data: ClassData): vscode.MarkdownStr
 
     if (data.statics?.length > 0) {
         md.appendMarkdown(`### Statics\n`);
-        for (const s of data.statics) md.appendMarkdown(`- \`static ${s.name}:${s.type}\`${s.description ? ` — ${s.description}` : ''}\n`);
+        for (const s of data.statics) md.appendMarkdown(`- \`static ${s.name}:${s.type}\`${s.description ? ` - ${s.description}` : ''}\n`);
         md.appendMarkdown('\n');
     }
 
     if (data.members?.length > 0) {
         md.appendMarkdown(`### Members\n`);
-        for (const m of data.members) md.appendMarkdown(`- \`${m.name}:${m.type}\`${m.description ? ` — ${m.description}` : ''}\n`);
+        for (const m of data.members) md.appendMarkdown(`- \`${m.name}:${m.type}\`${m.description ? ` - ${m.description}` : ''}\n`);
         md.appendMarkdown('\n');
     }
 
     if (data.functions?.length > 0) {
         md.appendMarkdown(`### Functions\n`);
-        for (const fn of data.functions) md.appendMarkdown(`- \`${formatSignature(fn)}\`${fn.description ? ` — ${fn.description}` : ''}\n`);
+        for (const fn of data.functions) md.appendMarkdown(`- \`${formatSignature(fn)}\`${fn.description ? ` - ${fn.description}` : ''}\n`);
     }
 
     return md;
@@ -187,8 +201,21 @@ function buildMemberHover(className: string, memberName: string, data: ClassData
     return null;
 }
 
-function isValidSongFile(fileName: string): boolean {
-    return fileName.includes("song") && (fileName.includes("scripts") || fileName.includes("song"));
+function buildFlagHover(flag: ClassStatic): vscode.MarkdownString {
+    const md = new vscode.MarkdownString();
+    md.isTrusted = true;
+    md.appendMarkdown(`### \`Flags.${flag.name}\`\n\n`);
+    md.appendMarkdown(`**Type:** \`${flag.type}\`\n\n`);
+    if (flag.description) md.appendMarkdown(flag.description);
+    return md;
+}
+
+function workspaceHasModpack(): boolean {
+    return (vscode.workspace.workspaceFolders ?? []).some(folder => {
+        const base = folder.uri.fsPath;
+        const variants = ['data/config/modpack.ini', 'Data/config/modpack.ini', 'data/Config/modpack.ini', 'Data/Config/modpack.ini'];
+        return variants.some(p => fs.existsSync(path.join(base, p)));
+    });
 }
 
 function makeXmlSnippet(name: string, description: string, code: string): vscode.CompletionItem {
@@ -200,8 +227,7 @@ function makeXmlSnippet(name: string, description: string, code: string): vscode
     return item;
 }
 
-function makeHaxeSnippet(name: string, description: string | null, code: string, kind: vscode.CompletionItemKind, command?: vscode.Command
-): vscode.CompletionItem {
+function makeHaxeSnippet(name: string, description: string | null, code: string, kind: vscode.CompletionItemKind, command?: vscode.Command): vscode.CompletionItem {
     const kindLabel = kind === vscode.CompletionItemKind.Event ? "Event Function" : kind === vscode.CompletionItemKind.Function ? "Callback Function" : "Snippet";
     const item = new vscode.CompletionItem(`[CNE] ${kindLabel}: ${name}`);
     item.documentation = description ?? undefined;
@@ -212,13 +238,11 @@ function makeHaxeSnippet(name: string, description: string | null, code: string,
     return item;
 }
 
-
 function checkIfInFunction(document: vscode.TextDocument, position: vscode.Position): boolean {
     const fullText = document.getText();
     const currentLine = position.line;
     const lines = fullText.split('\n');
 
-    // cuz like, head hurt.
     const functionRegexes = [
         /(public|private|static|override)?\s*function\s+\w+\s*(<[^>]*>)?\s*\([^)]*\)(\s*:\s*[^{]*?)?\s*{/g,
         /(public|private|static|override)?\s*function\s+\w+\s*(<[^>]*>)?\s*\([^)]*\)(\s*:\s*[^{]*?)?\s*\n\s*{/g,
@@ -269,18 +293,66 @@ export function activate(context: vscode.ExtensionContext) {
 
     context.subscriptions.push(vscode.languages.registerCompletionItemProvider("xml", {
         provideCompletionItems(document) {
-            if (!isValidSongFile(document.fileName)) return;
+            if (!workspaceHasModpack()) return;
 
             const items: vscode.CompletionItem[] = XML_STAGE_SNIPPETS.map(([name, desc, code]) =>
                 makeXmlSnippet(name, desc, code)
             );
 
             for (const [tag, label] of XML_CHARACTER_ENTRIES) {
-                items.push(makeXmlSnippet(`${label} Character Position`,`Sets the position for the ${label.toLowerCase()} in the stage`,`<${tag} x="0" y="0" alpha="1" scale="1" camxoffset="0" camyoffset="0" flipX="false" scroll="1"/>$0`));
+                items.push(makeXmlSnippet(`${label} Character Position`, `Sets the position for the ${label.toLowerCase()} in the stage`, `<${tag} x="0" y="0" alpha="1" scale="1" camxoffset="0" camyoffset="0" flipX="false" scroll="1"/>$0`));
             }
 
             return new vscode.CompletionList(items, false);
         },
+    }));
+
+    context.subscriptions.push(vscode.languages.registerHoverProvider(MODPACK_INI_SELECTOR, {
+        provideHover(document, position) {
+            const line = document.lineAt(position.line).text.trim();
+            if (line.startsWith(';') || line.startsWith('#') || line.startsWith('[')) return;
+
+            const eqIdx = line.indexOf('=');
+            if (eqIdx === -1) return;
+
+            const key = line.slice(0, eqIdx).trim();
+            const keyEnd = document.lineAt(position.line).text.indexOf('=');
+            if (position.character > keyEnd) return;
+
+            const flags = loadFlags(context.extensionPath);
+            const flag = flags.find(f => f.name === key);
+            if (!flag) return;
+
+            return new vscode.Hover(buildFlagHover(flag));
+        }
+    }));
+
+    context.subscriptions.push(vscode.languages.registerCompletionItemProvider(MODPACK_INI_SELECTOR, {
+        provideCompletionItems(document, position) {
+            const line = document.lineAt(position.line).text;
+            if (line.trim().startsWith(';') || line.trim().startsWith('#') || line.trim().startsWith('[')) return;
+
+            const eqIdx = line.indexOf('=');
+            if (eqIdx !== -1 && position.character > eqIdx) return;
+
+            const flags = loadFlags(context.extensionPath);
+            const items: vscode.CompletionItem[] = flags.map(flag => {
+                const item = new vscode.CompletionItem(flag.name, vscode.CompletionItemKind.Property);
+                item.detail = flag.type;
+                item.documentation = new vscode.MarkdownString(flag.description ?? '');
+
+                let defaultVal = '';
+                if (flag.type === 'Bool') defaultVal = 'false';
+                else if (flag.type === 'Int') defaultVal = '0';
+                else if (flag.type === 'Float') defaultVal = '0.0';
+
+                item.insertText = new vscode.SnippetString(`${flag.name} = \${1:${defaultVal}}`);
+                item.filterText = flag.name;
+                return item;
+            });
+
+            return new vscode.CompletionList(items, false);
+        }
     }));
 
     context.subscriptions.push(vscode.languages.registerHoverProvider(OTHER_HAXE_EXT, {
@@ -313,16 +385,16 @@ export function activate(context: vscode.ExtensionContext) {
             const linePrefix = document.lineAt(position).text.slice(0, position.character);
             const dotMatch = linePrefix.match(/\b(\w+)\.\s*$/);
             if (dotMatch) {
-            const word = dotMatch[1];
-            // try direct class name first (like FunkinSave.)
-            let data = loadClassData(context.extensionPath, word);
-            // if not found, try to infer type from variable declaration (like... dih = new FunkinSprite())
-            if (!data) {
-                const inferredType = inferVariableType(document, word);
-                if (inferredType) data = loadClassData(context.extensionPath, inferredType);
-            }
-            if (data)
-                return new vscode.CompletionList(makeCompletionFromClass(data), false);
+                const word = dotMatch[1];
+                // try direct class name first (like FunkinSave.)
+                let data = loadClassData(context.extensionPath, word);
+                // if not found, try to infer type from variable declaration (like... dih = new FunkinSprite())
+                if (!data) {
+                    const inferredType = inferVariableType(document, word);
+                    if (inferredType) data = loadClassData(context.extensionPath, inferredType);
+                }
+                if (data)
+                    return new vscode.CompletionList(makeCompletionFromClass(data), false);
             }
 
             if (!inFunction) {
@@ -332,14 +404,14 @@ export function activate(context: vscode.ExtensionContext) {
 
                 for (const event of CNECallbacks.events as any[]) {
                     if (inSongs === event.isGlobal) continue;
-                    items.push(makeHaxeSnippet(event.name, event.description ?? null,`function ${event.name}(event:${event.type}) {\n\t$0\n}`,vscode.CompletionItemKind.Event,{ command: 'cneextension.addCallbackImport', title: 'Add Callback Import', arguments: [document.uri, event.type, event.type] }));
+                    items.push(makeHaxeSnippet(event.name, event.description ?? null, `function ${event.name}(event:${event.type}) {\n\t$0\n}`, vscode.CompletionItemKind.Event, { command: 'cneextension.addCallbackImport', title: 'Add Callback Import', arguments: [document.uri, event.type, event.type] }));
                 }
 
                 for (const callback of CNECallbacks.callbacks as any[]) {
                     if (inSongs === callback.isGlobal) continue;
                     const argString = callback.args.map((a: any) => `${a.name}:${a.type}`).join(', ');
                     const importArg = callback.args.find((a: any) => a.typePath !== null);
-                    items.push(makeHaxeSnippet(callback.name, callback.description ?? null,`function ${callback.name}(${argString}) {\n\t$0\n}`,vscode.CompletionItemKind.Function,importArg ? { command: 'cneextension.addCallbackImport', title: 'Add Callback Import', arguments: [document.uri, importArg.type, { path: importArg.typePath }] } : undefined));
+                    items.push(makeHaxeSnippet(callback.name, callback.description ?? null, `function ${callback.name}(${argString}) {\n\t$0\n}`, vscode.CompletionItemKind.Function, importArg ? { command: 'cneextension.addCallbackImport', title: 'Add Callback Import', arguments: [document.uri, importArg.type, { path: importArg.typePath }] } : undefined));
                 }
 
                 for (const variable of CNEVariables.variables as any[]) {
@@ -365,7 +437,7 @@ export function activate(context: vscode.ExtensionContext) {
             for (const lib of preImportedLibraries) {
                 const regex = new RegExp(`import\\s+${lib.replace('.', '\\.')}`, 'g');
                 let match;
-                while ((match = regex.exec(text)) !== null) diagnostics.push(new vscode.Diagnostic(new vscode.Range(document.positionAt(match.index), document.positionAt(match.index + match[0].length)),`The library '${lib}' is already pre-imported, No need to import it in.`,vscode.DiagnosticSeverity.Warning));
+                while ((match = regex.exec(text)) !== null) diagnostics.push(new vscode.Diagnostic(new vscode.Range(document.positionAt(match.index), document.positionAt(match.index + match[0].length)), `The library '${lib}' is already pre-imported, No need to import it in.`, vscode.DiagnosticSeverity.Warning));
             }
             diagnosticCollection.set(document.uri, diagnostics);
 
@@ -398,5 +470,6 @@ function inferVariableType(document: vscode.TextDocument, varName: string): stri
     }
     return null;
 }
+
 
 export function deactivate() {}

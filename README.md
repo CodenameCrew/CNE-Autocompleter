@@ -20,6 +20,20 @@ Autocomplete for Codename XML Files (Only stages currently) & Haxe scripts (HScr
 
 ## Release Notes
 
+### 0.7.1
+
+- Added `modpack.ini` Support, You can now add Flags without having to look at the API doc.
+- Overhauled Extenstion Runner by Detecting `modpack.ini` in your `data/config/` folder.
+**Added supported classes:**
+
+| Class |
+|---|
+| `TranslationUtil` |
+| `Week` |
+|`Video Cutscene` |
+
+sorry it had to be little i have other important stuff to do
+
 ### 0.7.0
 
 - Added Class Support (on adding a new constructor OR getting a static variable/function)
