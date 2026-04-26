@@ -1,8 +1,0 @@
-{
-  "statics": [],
-  "members": [],
-  "functions": [
-    { "name": "loadWeek", "args": [{ "name": "weekName", "type": "String", "optional": false }, { "name": "loadCharactersData", "type": "Bool", "optional": true }], "returns": "WeekData", "description": "Loads and parses a week XML file. Returns null if invalid or missing songs." },
-    { "name": "loadWeekCharacter", "args": [{ "name": "charName", "type": "String", "optional": false }], "returns": "WeekCharacter", "description": "Loads and parses a week character XML file. Returns null if the file can't be parsed." }
-  ]
-}

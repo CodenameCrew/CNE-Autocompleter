@@ -2,7 +2,7 @@
   "name": "codename-autocompleter",
   "displayName": "Codename Autocompleter",
   "description": "",
-  "version": "0.7.1",
+  "version": "0.6.1",
   "engines": {
     "vscode": "^1.96.0"
   },
@@ -10,21 +10,20 @@
   "publisher": "HeroEyad",
   "repository": {
     "type": "git",
-    "url": "https://github.com/CodenameCrew/CNE-Autocompleter"
+    "url": "https://github.com/CodenameCrew/CNE-Autocomplete"
   },
   "categories": [
     "Other"
   ],
   "activationEvents": [
     "onLanguage:haxe",
-    "onLanguage:xml",
-    "workspaceContains:**/data/config/modpack.ini"
+    "onLanguage:xml"
   ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "codename-autocompleter.helloWorld",
+        "command": "codename-autocomplete.helloWorld",
         "title": "Hello World"
       }
     ]
