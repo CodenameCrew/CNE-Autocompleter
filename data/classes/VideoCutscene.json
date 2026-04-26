@@ -1,0 +1,21 @@
+{
+  "extends": "Cutscene",
+  "statics": [],
+  "members": [
+    { "name": "path", "type": "String", "description": "The asset path to the video file." },
+    { "name": "localPath", "type": "String", "description": "The resolved local filesystem path to the video file." },
+    { "name": "subtitles", "type": "Array<CutsceneSubtitle>", "description": "List of subtitle entries parsed from the .srt file." },
+    { "name": "curSubtitle", "type": "Int", "description": "Index of the currently active subtitle." }
+  ],
+  "functions": [
+    { "name": "new", "args": [{ "name": "path", "type": "String", "optional": false }, { "name": "callback", "type": "Void->Void", "optional": false }], "returns": "VideoCutscene", "description": "Creates a new video cutscene from the given asset path." },
+    { "name": "parseSubtitles", "args": [], "returns": "Void", "description": "Parses a .srt subtitle file matching the video path and populates the subtitles array." },
+    { "name": "splitTime", "args": [{ "name": "str", "type": "String", "optional": false }], "returns": "Float", "description": "Parses an SRT timestamp string (e.g. 00:01:23,456) into seconds." },
+    { "name": "onReady", "args": [], "returns": "Void", "description": "Called when the video has finished loading. Fades out the loading bar and starts playback." },
+    { "name": "setSubtitle", "args": [{ "name": "sub", "type": "CutsceneSubtitle", "optional": false }], "returns": "Void", "description": "Updates the subtitle text and background visibility." },
+    { "name": "pauseCutscene", "args": [], "returns": "Void", "description": "Pauses the video playback." },
+    { "name": "onResumeCutscene", "args": [{ "name": "event", "type": "Dynamic", "optional": false }], "returns": "Void", "description": "Resumes video playback after the pause menu is closed." },
+    { "name": "onRestartCutscene", "args": [{ "name": "event", "type": "Dynamic", "optional": false }], "returns": "Void", "description": "Restarts the video from the beginning and resets subtitles." },
+    { "name": "destroy", "args": [], "returns": "Void", "description": "Removes the cutscene camera and destroys the video sprite." }
+  ]
+}
