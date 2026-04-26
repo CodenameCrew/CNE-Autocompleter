@@ -1,46 +1,251 @@
 {
   "statics": [
-    { "name": "copyFrom", "type": "FunkinSprite", "description": "Copies graphics and properties from another FlxSprite or FunkinSprite." }
+    {
+      "name": "copyFrom",
+      "type": "FunkinSprite",
+      "description": "Copies graphics and properties from another FlxSprite or FunkinSprite."
+    }
   ],
   "members": [
-    { "name": "extra", "type": "Map<String, Dynamic>", "description": "Extra dynamic data attached to this sprite." },
-    { "name": "spriteAnimType", "type": "XMLAnimType", "description": "The animation type for this sprite (NONE, BEAT, LOOP)." },
-    { "name": "beatAnims", "type": "Array<BeatAnim>", "description": "List of animations to play on beat." },
-    { "name": "name", "type": "String", "description": "Name identifier for this sprite." },
-    { "name": "zoomFactor", "type": "Float", "description": "Zoom factor applied during draw relative to the camera center." },
-    { "name": "debugMode", "type": "Bool", "description": "If true, disables auto loop anim behavior." },
-    { "name": "animDatas", "type": "Map<String, AnimData>", "description": "Stores animation data by name." },
-    { "name": "animEnabled", "type": "Bool", "description": "If false, disables animation updates and beat anims." },
-    { "name": "zoomFactorEnabled", "type": "Bool", "description": "If false, disables zoom factor during draw." },
-    { "name": "beatInterval", "type": "Int", "description": "How many beats between each beat anim. Minimum 1." },
-    { "name": "beatOffset", "type": "Int", "description": "Beat offset for beat anim alignment." },
-    { "name": "skipNegativeBeats", "type": "Bool", "description": "If true, skips beat anims on negative beats." },
-    { "name": "animOffsets", "type": "Map<String, FlxPoint>", "description": "Per-animation offsets applied on playAnim." },
-    { "name": "lastAnimContext", "type": "PlayAnimContext", "description": "The context of the last played animation." },
-    { "name": "animateSettings", "type": "FlxAnimateSettings", "description": "Settings passed to FlxAnimate on loadSprite." },
-    { "name": "globalCurFrame", "type": "Int", "description": "Gets or sets the current frame of the active animation." }
+    {
+      "name": "extra",
+      "type": "Map<String, Dynamic>",
+      "description": "Extra dynamic data attached to this sprite."
+    },
+    {
+      "name": "spriteAnimType",
+      "type": "XMLAnimType",
+      "description": "The animation type for this sprite (NONE, BEAT, LOOP)."
+    },
+    {
+      "name": "beatAnims",
+      "type": "Array<BeatAnim>",
+      "description": "List of animations to play on beat."
+    },
+    {
+      "name": "name",
+      "type": "String",
+      "description": "Name identifier for this sprite."
+    },
+    {
+      "name": "zoomFactor",
+      "type": "Float",
+      "description": "Zoom factor applied during draw relative to the camera center."
+    },
+    {
+      "name": "debugMode",
+      "type": "Bool",
+      "description": "If true, disables auto loop anim behavior."
+    },
+    {
+      "name": "animDatas",
+      "type": "Map<String, AnimData>",
+      "description": "Stores animation data by name."
+    },
+    {
+      "name": "animEnabled",
+      "type": "Bool",
+      "description": "If false, disables animation updates and beat anims."
+    },
+    {
+      "name": "zoomFactorEnabled",
+      "type": "Bool",
+      "description": "If false, disables zoom factor during draw."
+    },
+    {
+      "name": "beatInterval",
+      "type": "Int",
+      "description": "How many beats between each beat anim. Minimum 1."
+    },
+    {
+      "name": "beatOffset",
+      "type": "Int",
+      "description": "Beat offset for beat anim alignment."
+    },
+    {
+      "name": "skipNegativeBeats",
+      "type": "Bool",
+      "description": "If true, skips beat anims on negative beats."
+    },
+    {
+      "name": "animOffsets",
+      "type": "Map<String, FlxPoint>",
+      "description": "Per-animation offsets applied on playAnim."
+    },
+    {
+      "name": "lastAnimContext",
+      "type": "PlayAnimContext",
+      "description": "The context of the last played animation."
+    },
+    {
+      "name": "animateSettings",
+      "type": "FlxAnimateSettings",
+      "description": "Settings passed to FlxAnimate on loadSprite."
+    },
+    {
+      "name": "globalCurFrame",
+      "type": "Int",
+      "description": "Gets or sets the current frame of the active animation."
+    }
   ],
   "functions": [
-    { "name": "new", "args": [{ "name": "X", "type": "Float", "optional": true }, { "name": "Y", "type": "Float", "optional": true }, { "name": "SimpleGraphic", "type": "FlxGraphicAsset", "optional": true }], "returns": "FunkinSprite", "description": "Creates a new FunkinSprite." },
-    { "name": "loadSprite", "args": [{ "name": "path", "type": "String", "optional": false }, { "name": "Unique", "type": "Bool", "optional": true }, { "name": "Key", "type": "String", "optional": true }], "returns": "FunkinSprite", "description": "Loads a sprite from a path using Paths.getFrames." },
-    { "name": "playAnim", "args": [{ "name": "AnimName", "type": "String", "optional": false }, { "name": "Force", "type": "Bool", "optional": true }, { "name": "Context", "type": "PlayAnimContext", "optional": true }, { "name": "Reversed", "type": "Bool", "optional": true }, { "name": "Frame", "type": "Int", "optional": true }], "returns": "Void", "description": "Plays an animation by name. Applies the corresponding animOffset automatically." },
-    { "name": "addAnim", "args": [{ "name": "name", "type": "String", "optional": false }, { "name": "prefix", "type": "String", "optional": false }, { "name": "frameRate", "type": "Float", "optional": true }, { "name": "looped", "type": "Bool", "optional": true }, { "name": "forced", "type": "Bool", "optional": true }, { "name": "indices", "type": "Array<Int>", "optional": true }, { "name": "x", "type": "Float", "optional": true }, { "name": "y", "type": "Float", "optional": true }, { "name": "animType", "type": "XMLAnimType", "optional": true }, { "name": "animateAtlasLabel", "type": "Bool", "optional": true }], "returns": "Void", "description": "Adds an animation to the sprite." },
-    { "name": "removeAnim", "args": [{ "name": "name", "type": "String", "optional": false }], "returns": "Void", "description": "Removes an animation by name." },
-    { "name": "getAnim", "args": [{ "name": "name", "type": "String", "optional": false }], "returns": "OneOfTwo<FlxAnimation, FlxAnimateAnimation>", "description": "Returns the animation object by name." },
-    { "name": "addOffset", "args": [{ "name": "name", "type": "String", "optional": false }, { "name": "x", "type": "Float", "optional": true }, { "name": "y", "type": "Float", "optional": true }], "returns": "Void", "description": "Adds an animation offset by name." },
-    { "name": "switchOffset", "args": [{ "name": "anim1", "type": "String", "optional": false }, { "name": "anim2", "type": "String", "optional": false }], "returns": "Void", "description": "Swaps the offsets of two animations." },
-    { "name": "getAnimOffset", "args": [{ "name": "name", "type": "String", "optional": false }], "returns": "FlxPoint", "description": "Returns the offset FlxPoint for the given animation name." },
-    { "name": "hasAnim", "args": [{ "name": "AnimName", "type": "String", "optional": false }], "returns": "Bool", "description": "Returns true if the animation exists." },
-    { "name": "getAnimName", "args": [], "returns": "String", "description": "Returns the name of the currently playing animation." },
-    { "name": "isAnimReversed", "args": [], "returns": "Bool", "description": "Returns true if the current animation is reversed." },
-    { "name": "getNameList", "args": [], "returns": "Array<String>", "description": "Returns a list of all animation names on this sprite." },
-    { "name": "stopAnim", "args": [], "returns": "Void", "description": "Stops the current animation." },
-    { "name": "isAnimFinished", "args": [], "returns": "Bool", "description": "Returns true if the current animation has finished playing." },
-    { "name": "isAnimAtEnd", "args": [], "returns": "Bool", "description": "Returns true if the current animation is on its last frame." },
-    { "name": "isOnScreen", "args": [{ "name": "camera", "type": "FlxCamera", "optional": true }], "returns": "Bool", "description": "Returns true if the sprite is visible within the given camera bounds." },
-    { "name": "beatHit", "args": [{ "name": "curBeat", "type": "Int", "optional": false }], "returns": "Void", "description": "Called every beat. Triggers beat animations if animEnabled is true." },
-    { "name": "stepHit", "args": [{ "name": "curBeat", "type": "Int", "optional": false }], "returns": "Void", "description": "Called every step." },
-    { "name": "measureHit", "args": [{ "name": "curMeasure", "type": "Int", "optional": false }], "returns": "Void", "description": "Called every measure." },
-    { "name": "destroy", "args": [], "returns": "Void", "description": "Destroys the sprite and cleans up animation offsets." }
+    {
+      "name": "new",
+      "args": [
+        { "name": "X", "type": "Float", "optional": true },
+        { "name": "Y", "type": "Float", "optional": true },
+        { "name": "SimpleGraphic", "type": "FlxGraphicAsset", "optional": true }
+      ],
+      "returns": "FunkinSprite",
+      "description": "Creates a new FunkinSprite."
+    },
+    {
+      "name": "loadSprite",
+      "args": [
+        { "name": "path", "type": "String", "optional": false },
+        { "name": "Unique", "type": "Bool", "optional": true },
+        { "name": "Key", "type": "String", "optional": true }
+      ],
+      "returns": "FunkinSprite",
+      "description": "Loads a sprite from a path using Paths.getFrames."
+    },
+    {
+      "name": "playAnim",
+      "args": [
+        { "name": "AnimName", "type": "String", "optional": false },
+        { "name": "Force", "type": "Bool", "optional": true },
+        { "name": "Context", "type": "PlayAnimContext", "optional": true },
+        { "name": "Reversed", "type": "Bool", "optional": true },
+        { "name": "Frame", "type": "Int", "optional": true }
+      ],
+      "returns": "Void",
+      "description": "Plays an animation by name. Applies the corresponding animOffset automatically."
+    },
+    {
+      "name": "addAnim",
+      "args": [
+        { "name": "name", "type": "String", "optional": false },
+        { "name": "prefix", "type": "String", "optional": false },
+        { "name": "frameRate", "type": "Float", "optional": true },
+        { "name": "looped", "type": "Bool", "optional": true },
+        { "name": "forced", "type": "Bool", "optional": true },
+        { "name": "indices", "type": "Array<Int>", "optional": true },
+        { "name": "x", "type": "Float", "optional": true },
+        { "name": "y", "type": "Float", "optional": true },
+        { "name": "animType", "type": "XMLAnimType", "optional": true },
+        { "name": "animateAtlasLabel", "type": "Bool", "optional": true }
+      ],
+      "returns": "Void",
+      "description": "Adds an animation to the sprite."
+    },
+    {
+      "name": "removeAnim",
+      "args": [{ "name": "name", "type": "String", "optional": false }],
+      "returns": "Void",
+      "description": "Removes an animation by name."
+    },
+    {
+      "name": "getAnim",
+      "args": [{ "name": "name", "type": "String", "optional": false }],
+      "returns": "OneOfTwo<FlxAnimation, FlxAnimateAnimation>",
+      "description": "Returns the animation object by name."
+    },
+    {
+      "name": "addOffset",
+      "args": [
+        { "name": "name", "type": "String", "optional": false },
+        { "name": "x", "type": "Float", "optional": true },
+        { "name": "y", "type": "Float", "optional": true }
+      ],
+      "returns": "Void",
+      "description": "Adds an animation offset by name."
+    },
+    {
+      "name": "switchOffset",
+      "args": [
+        { "name": "anim1", "type": "String", "optional": false },
+        { "name": "anim2", "type": "String", "optional": false }
+      ],
+      "returns": "Void",
+      "description": "Swaps the offsets of two animations."
+    },
+    {
+      "name": "getAnimOffset",
+      "args": [{ "name": "name", "type": "String", "optional": false }],
+      "returns": "FlxPoint",
+      "description": "Returns the offset FlxPoint for the given animation name."
+    },
+    {
+      "name": "hasAnim",
+      "args": [{ "name": "AnimName", "type": "String", "optional": false }],
+      "returns": "Bool",
+      "description": "Returns true if the animation exists."
+    },
+    {
+      "name": "getAnimName",
+      "args": [],
+      "returns": "String",
+      "description": "Returns the name of the currently playing animation."
+    },
+    {
+      "name": "isAnimReversed",
+      "args": [],
+      "returns": "Bool",
+      "description": "Returns true if the current animation is reversed."
+    },
+    {
+      "name": "getNameList",
+      "args": [],
+      "returns": "Array<String>",
+      "description": "Returns a list of all animation names on this sprite."
+    },
+    {
+      "name": "stopAnim",
+      "args": [],
+      "returns": "Void",
+      "description": "Stops the current animation."
+    },
+    {
+      "name": "isAnimFinished",
+      "args": [],
+      "returns": "Bool",
+      "description": "Returns true if the current animation has finished playing."
+    },
+    {
+      "name": "isAnimAtEnd",
+      "args": [],
+      "returns": "Bool",
+      "description": "Returns true if the current animation is on its last frame."
+    },
+    {
+      "name": "isOnScreen",
+      "args": [{ "name": "camera", "type": "FlxCamera", "optional": true }],
+      "returns": "Bool",
+      "description": "Returns true if the sprite is visible within the given camera bounds."
+    },
+    {
+      "name": "beatHit",
+      "args": [{ "name": "curBeat", "type": "Int", "optional": false }],
+      "returns": "Void",
+      "description": "Called every beat. Triggers beat animations if animEnabled is true."
+    },
+    {
+      "name": "stepHit",
+      "args": [{ "name": "curBeat", "type": "Int", "optional": false }],
+      "returns": "Void",
+      "description": "Called every step."
+    },
+    {
+      "name": "measureHit",
+      "args": [{ "name": "curMeasure", "type": "Int", "optional": false }],
+      "returns": "Void",
+      "description": "Called every measure."
+    },
+    {
+      "name": "destroy",
+      "args": [],
+      "returns": "Void",
+      "description": "Destroys the sprite and cleans up animation offsets."
+    }
   ]
 }
