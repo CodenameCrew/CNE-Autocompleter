@@ -3,6 +3,18 @@
   "statics": [],
   "members": [],
   "functions": [
-    { "name": "new", "args": [{ "name": "X", "type": "Float", "optional": true }, { "name": "Y", "type": "Float", "optional": true }, { "name": "FieldWidth", "type": "Float", "optional": true }, { "name": "Text", "type": "String", "optional": true }, { "name": "Size", "type": "Int", "optional": true }, { "name": "Border", "type": "Bool", "optional": true }], "returns": "FunkinText", "description": "Creates a new FunkinText. Defaults to the engine font and size. Adds an outline border unless Border is false." }
+    {
+      "name": "new",
+      "args": [
+        { "name": "X", "type": "Float", "optional": true },
+        { "name": "Y", "type": "Float", "optional": true },
+        { "name": "FieldWidth", "type": "Float", "optional": true },
+        { "name": "Text", "type": "String", "optional": true },
+        { "name": "Size", "type": "Int", "optional": true },
+        { "name": "Border", "type": "Bool", "optional": true }
+      ],
+      "returns": "FunkinText",
+      "description": "Creates a new FunkinText. Defaults to the engine font and size. Adds an outline border unless Border is false."
+    }
   ]
 }

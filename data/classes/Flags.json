@@ -1,120 +1,583 @@
 {
   "statics": [
-    { "name": "overridenFlags", "type": "Map<String, Bool>", "description": "Tracks which flags have been overridden by mods." },
-    { "name": "customFlags", "type": "Map<String, String>", "description": "Flags that Codename couldn't recognize as its own defaults." },
-    { "name": "addonFlags", "type": "Map<String, Dynamic>", "description": "Flags from addon mods, keyed by mod name." },
-    { "name": "CURRENT_API_VERSION", "type": "Int", "description": "The current API version of Codename Engine." },
-    { "name": "ALLOWED_ZIP_EXTENSIONS", "type": "Array<String>", "description": "Allowed zip extensions for ZipFolderLibrary." },
-    { "name": "MOD_NAME", "type": "String", "description": "The current mod's name." },
-    { "name": "MOD_DESCRIPTION", "type": "String", "description": "The current mod's description." },
-    { "name": "MOD_AUTHOR", "type": "String", "description": "The current mod's author." },
-    { "name": "MOD_API_VERSION", "type": "Int", "description": "The current mod's API version." },
-    { "name": "MOD_DOWNLOAD_LINK", "type": "String", "description": "The current mod's download link." },
-    { "name": "MOD_DEPENDENCIES", "type": "Array<String>", "description": "The current mod's dependencies." },
-    { "name": "MOD_ICON", "type": "String", "description": "The current mod's icon path." },
-    { "name": "MOD_DISCORD_CLIENT_ID", "type": "String", "description": "The current mod's Discord client ID override." },
-    { "name": "MOD_DISCORD_LOGO_KEY", "type": "String", "description": "The current mod's Discord logo key override." },
-    { "name": "MOD_DISCORD_LOGO_TEXT", "type": "String", "description": "The current mod's Discord logo text override." },
-    { "name": "MOD_REDIRECT_STATES", "type": "Map<String, String>", "description": "State redirects defined by the current mod." },
-    { "name": "SAVE_PATH", "type": "String", "description": "The save file path. Defaults to CodenameEngine." },
-    { "name": "SAVE_NAME", "type": "String", "description": "The save file name. Defaults to save-default." },
-    { "name": "COMMIT_NUMBER", "type": "Int", "description": "The current git commit number." },
-    { "name": "COMMIT_HASH", "type": "String", "description": "The current git commit hash." },
-    { "name": "COMMIT_MESSAGE", "type": "String", "description": "A formatted commit message string." },
-    { "name": "WINDOW_TITLE_USE_MOD_NAME", "type": "Bool", "description": "If true, the window title uses the mod name instead of the app name." },
-    { "name": "TITLE", "type": "String", "description": "The application title from project metadata." },
-    { "name": "VERSION", "type": "String", "description": "The application version from project metadata." },
-    { "name": "VERSION_MESSAGE", "type": "String", "description": "Formatted version string e.g. 'Codename Engine v1.0'." },
-    { "name": "REPO_NAME", "type": "String", "description": "The GitHub repository name." },
-    { "name": "REPO_OWNER", "type": "String", "description": "The GitHub repository owner." },
-    { "name": "REPO_URL", "type": "String", "description": "The full GitHub repository URL." },
-    { "name": "SOUND_EXT", "type": "String", "description": "Preferred audio extension. ogg on desktop, mp3 on web." },
-    { "name": "VIDEO_EXT", "type": "String", "description": "Preferred video extension." },
-    { "name": "IMAGE_EXT", "type": "String", "description": "Preferred image extension." },
-    { "name": "DEFAULT_DISCORD_LOGO_KEY", "type": "String", "description": "Default Discord large image key." },
-    { "name": "DEFAULT_DISCORD_CLIENT_ID", "type": "String", "description": "Default Discord client ID." },
-    { "name": "DEFAULT_DISCORD_LOGO_TEXT", "type": "String", "description": "Default Discord large image tooltip text." },
-    { "name": "DEFAULT_CHARACTER", "type": "String", "description": "Default player character. (bf)" },
-    { "name": "DEFAULT_GIRLFRIEND", "type": "String", "description": "Default spectator character. (gf)" },
-    { "name": "DEFAULT_OPPONENT", "type": "String", "description": "Default opponent character. (dad)" },
-    { "name": "DEFAULT_DIFFICULTY", "type": "String", "description": "Default song difficulty. (normal)" },
-    { "name": "DEFAULT_STAGE", "type": "String", "description": "Default stage. (stage)" },
-    { "name": "DEFAULT_SCROLL_SPEED", "type": "Float", "description": "Default note scroll speed." },
-    { "name": "DEFAULT_HEALTH_ICON", "type": "String", "description": "Default health icon name." },
-    { "name": "DEFAULT_LANGUAGE", "type": "String", "description": "Default language ID. (en)" },
-    { "name": "DEFAULT_LANGUAGE_NAME", "type": "String", "description": "Default language display name. (English)" },
-    { "name": "BLACKLISTED_LANGUAGES", "type": "Array<String>", "description": "Language IDs that are blacklisted from use." },
-    { "name": "WHITELISTED_LANGUAGES", "type": "Array<String>", "description": "If not empty, only these language IDs can be used." },
-    { "name": "DEFAULT_BPM", "type": "Float", "description": "Default BPM for songs." },
-    { "name": "DEFAULT_BEATS_PER_MEASURE", "type": "Int", "description": "Default beats per measure." },
-    { "name": "DEFAULT_STEPS_PER_BEAT", "type": "Int", "description": "Default steps per beat." },
-    { "name": "DEFAULT_COLOR", "type": "FlxColor", "description": "Default background color for songs." },
-    { "name": "DEFAULT_WEEK_COLOR", "type": "FlxColor", "description": "Default background color for weeks." },
-    { "name": "DEFAULT_COOP_ALLOWED", "type": "Bool", "description": "Whether coop mode is allowed by default." },
-    { "name": "DEFAULT_OPPONENT_MODE_ALLOWED", "type": "Bool", "description": "Whether opponent mode is allowed by default." },
-    { "name": "DEFAULT_COOP_MODE", "type": "Bool", "description": "Default coop mode state." },
-    { "name": "DEFAULT_OPPONENT_MODE", "type": "Bool", "description": "Default opponent mode state." },
-    { "name": "DEFAULT_NOTE_MS_LIMIT", "type": "Float", "description": "Maximum note ms offset before a note is ignored." },
-    { "name": "DEFAULT_NOTE_SCALE", "type": "Float", "description": "Default note scale." },
-    { "name": "DEFAULT_GAMEOVER_CHARACTER", "type": "String", "description": "Default game over character. (bf-dead)" },
-    { "name": "DEFAULT_CAM_ZOOM", "type": "Float", "description": "Default camera zoom level." },
-    { "name": "DEFAULT_HUD_ZOOM", "type": "Float", "description": "Default HUD zoom level." },
-    { "name": "DEFAULT_ZOOM", "type": "Float", "description": "Default stage zoom level." },
-    { "name": "DEFAULT_ZOOM_LERP", "type": "Float", "description": "Default zoom lerp speed." },
-    { "name": "DEFAULT_CAM_ZOOM_LERP", "type": "Float", "description": "Default camera zoom lerp speed." },
-    { "name": "DEFAULT_HUD_ZOOM_LERP", "type": "Float", "description": "Default HUD zoom lerp speed." },
-    { "name": "DEFAULT_CAM_ZOOM_MULT", "type": "Float", "description": "Default camera zoom multiplier on beat." },
-    { "name": "DEFAULT_HUD_ZOOM_MULT", "type": "Float", "description": "Default HUD zoom multiplier on beat." },
-    { "name": "MAX_CAMERA_ZOOM_MULT", "type": "Float", "description": "Maximum camera zoom multiplier." },
-    { "name": "USE_CAM_ZOOM_MULT", "type": "Bool", "description": "Whether camera zoom multiplier is used." },
-    { "name": "USE_LEGACY_ZOOM_FACTOR", "type": "Bool", "description": "Whether legacy zoom factor behavior is used." },
-    { "name": "USE_LEGACY_TIMING", "type": "Bool", "description": "Whether legacy timing behavior is used." },
-    { "name": "SUSTAINS_AS_ONE_NOTE", "type": "Bool", "description": "Whether sustain notes count as one note." },
-    { "name": "DEFAULT_FONT", "type": "String", "description": "Default font filename. (vcr.ttf)" },
-    { "name": "DEFAULT_FONT_SIZE", "type": "Int", "description": "Default font size." },
-    { "name": "DEFAULT_ALT_ANIM_SUFFIX", "type": "String", "description": "Suffix used for alt animations. (-alt)" },
-    { "name": "DEFAULT_PAUSE_ITEMS", "type": "Array<String>", "description": "Default pause menu items." },
-    { "name": "DEFAULT_CUTSCENE_PAUSE_ITEMS", "type": "Array<String>", "description": "Default cutscene pause menu items." },
-    { "name": "DEFAULT_GITAROO", "type": "Bool", "description": "Whether the Gitaroo easter egg is enabled." },
-    { "name": "GITAROO_CHANCE", "type": "Float", "description": "Chance of triggering the Gitaroo easter egg." },
-    { "name": "DEFAULT_MUTE_VOCALS_ON_MISS", "type": "Bool", "description": "Whether vocals are muted on miss by default." },
-    { "name": "DEFAULT_MAX_HEALTH", "type": "Float", "description": "Default maximum health value." },
-    { "name": "DEFAULT_ICONBOP", "type": "Bool", "description": "Whether health icons bop on beat by default." },
-    { "name": "BOP_ICON_SCALE", "type": "Float", "description": "Scale applied to icons when bopping." },
-    { "name": "PIXEL_ART_SCALE", "type": "Float", "description": "Scale used for pixel art stages." },
-    { "name": "DEFAULT_STRUM_AMOUNT", "type": "Int", "description": "Default number of strums per strumline." },
-    { "name": "DEFAULT_CAMERA_FOLLOW_SPEED", "type": "Float", "description": "Default camera follow lerp speed." },
-    { "name": "DEFAULT_MENU_MUSIC", "type": "String", "description": "Default main menu music path." },
-    { "name": "DEFAULT_PAUSE_MENU_MUSIC", "type": "String", "description": "Default pause menu music path." },
-    { "name": "DEFAULT_GAMEOVER_MUSIC", "type": "String", "description": "Default game over music path." },
-    { "name": "DEFAULT_MISS_SOUNDS", "type": "Array<String>", "description": "Default miss sound paths." },
-    { "name": "DEFAULT_INTRO_SOUNDS", "type": "Array<String>", "description": "Default intro countdown sound paths." },
-    { "name": "DEFAULT_MENU_SCROLL_SOUND", "type": "String", "description": "Default menu scroll sound path." },
-    { "name": "DEFAULT_MENU_CONFIRM_SOUND", "type": "String", "description": "Default menu confirm sound path." },
-    { "name": "DEFAULT_MENU_CANCEL_SOUND", "type": "String", "description": "Default menu cancel sound path." },
-    { "name": "DEFAULT_GLSL_VERSION", "type": "String", "description": "Default GLSL shader version string." },
-    { "name": "USER_AGENT", "type": "String", "description": "User-Agent string used in HTTP requests." },
-    { "name": "DISABLE_EDITORS", "type": "Bool", "description": "If true, disables all editors." },
-    { "name": "DISABLE_WARNING_SCREEN", "type": "Bool", "description": "If true, disables the warning screen." },
-    { "name": "DISABLE_TRANSITIONS", "type": "Bool", "description": "If true, disables state transitions." },
-    { "name": "DISABLE_LANGUAGES", "type": "Bool", "description": "If true, disables the language system." },
-    { "name": "DISABLE_AUTOUPDATER", "type": "Bool", "description": "If true, disables the auto-updater." },
-    { "name": "DEFAULT_TRANSITION_SCRIPT", "type": "String", "description": "Default transition script path." },
-    { "name": "DEFAULT_PAUSE_SCRIPT", "type": "String", "description": "Default pause substate script path." },
-    { "name": "DEFAULT_GAMEOVER_SCRIPT", "type": "String", "description": "Default game over substate script path." },
-    { "name": "URL_WIKI", "type": "String", "description": "URL to the Codename Engine wiki." },
-    { "name": "URL_EDITOR_FALLBACK", "type": "String", "description": "Fallback URL shown when editor docs are unavailable." },
-    { "name": "URL_FNF_ITCH", "type": "String", "description": "URL to the original FNF itch.io page." },
-    { "name": "SONGS_LIST_MOD_MODE", "type": "String", "description": "How mods affect the songs list. (prepend, override, append)" },
-    { "name": "WEEKS_LIST_MOD_MODE", "type": "String", "description": "How mods affect the weeks list. (prepend, override, append)" },
-    { "name": "JSON_PRETTY_PRINT", "type": "String", "description": "Indentation string used when pretty-printing JSON." },
-    { "name": "UNDO_PREFIX", "type": "String", "description": "Prefix added to undo history entries." }
+    {
+      "name": "overridenFlags",
+      "type": "Map<String, Bool>",
+      "description": "Tracks which flags have been overridden by mods."
+    },
+    {
+      "name": "customFlags",
+      "type": "Map<String, String>",
+      "description": "Flags that Codename couldn't recognize as its own defaults."
+    },
+    {
+      "name": "addonFlags",
+      "type": "Map<String, Dynamic>",
+      "description": "Flags from addon mods, keyed by mod name."
+    },
+    {
+      "name": "CURRENT_API_VERSION",
+      "type": "Int",
+      "description": "The current API version of Codename Engine."
+    },
+    {
+      "name": "ALLOWED_ZIP_EXTENSIONS",
+      "type": "Array<String>",
+      "description": "Allowed zip extensions for ZipFolderLibrary."
+    },
+    {
+      "name": "MOD_NAME",
+      "type": "String",
+      "description": "The current mod's name."
+    },
+    {
+      "name": "MOD_DESCRIPTION",
+      "type": "String",
+      "description": "The current mod's description."
+    },
+    {
+      "name": "MOD_AUTHOR",
+      "type": "String",
+      "description": "The current mod's author."
+    },
+    {
+      "name": "MOD_API_VERSION",
+      "type": "Int",
+      "description": "The current mod's API version."
+    },
+    {
+      "name": "MOD_DOWNLOAD_LINK",
+      "type": "String",
+      "description": "The current mod's download link."
+    },
+    {
+      "name": "MOD_DEPENDENCIES",
+      "type": "Array<String>",
+      "description": "The current mod's dependencies."
+    },
+    {
+      "name": "MOD_ICON",
+      "type": "String",
+      "description": "The current mod's icon path."
+    },
+    {
+      "name": "MOD_DISCORD_CLIENT_ID",
+      "type": "String",
+      "description": "The current mod's Discord client ID override."
+    },
+    {
+      "name": "MOD_DISCORD_LOGO_KEY",
+      "type": "String",
+      "description": "The current mod's Discord logo key override."
+    },
+    {
+      "name": "MOD_DISCORD_LOGO_TEXT",
+      "type": "String",
+      "description": "The current mod's Discord logo text override."
+    },
+    {
+      "name": "MOD_REDIRECT_STATES",
+      "type": "Map<String, String>",
+      "description": "State redirects defined by the current mod."
+    },
+    {
+      "name": "SAVE_PATH",
+      "type": "String",
+      "description": "The save file path. Defaults to CodenameEngine."
+    },
+    {
+      "name": "SAVE_NAME",
+      "type": "String",
+      "description": "The save file name. Defaults to save-default."
+    },
+    {
+      "name": "COMMIT_NUMBER",
+      "type": "Int",
+      "description": "The current git commit number."
+    },
+    {
+      "name": "COMMIT_HASH",
+      "type": "String",
+      "description": "The current git commit hash."
+    },
+    {
+      "name": "COMMIT_MESSAGE",
+      "type": "String",
+      "description": "A formatted commit message string."
+    },
+    {
+      "name": "WINDOW_TITLE_USE_MOD_NAME",
+      "type": "Bool",
+      "description": "If true, the window title uses the mod name instead of the app name."
+    },
+    {
+      "name": "TITLE",
+      "type": "String",
+      "description": "The application title from project metadata."
+    },
+    {
+      "name": "VERSION",
+      "type": "String",
+      "description": "The application version from project metadata."
+    },
+    {
+      "name": "VERSION_MESSAGE",
+      "type": "String",
+      "description": "Formatted version string e.g. 'Codename Engine v1.0'."
+    },
+    {
+      "name": "REPO_NAME",
+      "type": "String",
+      "description": "The GitHub repository name."
+    },
+    {
+      "name": "REPO_OWNER",
+      "type": "String",
+      "description": "The GitHub repository owner."
+    },
+    {
+      "name": "REPO_URL",
+      "type": "String",
+      "description": "The full GitHub repository URL."
+    },
+    {
+      "name": "SOUND_EXT",
+      "type": "String",
+      "description": "Preferred audio extension. ogg on desktop, mp3 on web."
+    },
+    {
+      "name": "VIDEO_EXT",
+      "type": "String",
+      "description": "Preferred video extension."
+    },
+    {
+      "name": "IMAGE_EXT",
+      "type": "String",
+      "description": "Preferred image extension."
+    },
+    {
+      "name": "DEFAULT_DISCORD_LOGO_KEY",
+      "type": "String",
+      "description": "Default Discord large image key."
+    },
+    {
+      "name": "DEFAULT_DISCORD_CLIENT_ID",
+      "type": "String",
+      "description": "Default Discord client ID."
+    },
+    {
+      "name": "DEFAULT_DISCORD_LOGO_TEXT",
+      "type": "String",
+      "description": "Default Discord large image tooltip text."
+    },
+    {
+      "name": "DEFAULT_CHARACTER",
+      "type": "String",
+      "description": "Default player character. (bf)"
+    },
+    {
+      "name": "DEFAULT_GIRLFRIEND",
+      "type": "String",
+      "description": "Default spectator character. (gf)"
+    },
+    {
+      "name": "DEFAULT_OPPONENT",
+      "type": "String",
+      "description": "Default opponent character. (dad)"
+    },
+    {
+      "name": "DEFAULT_DIFFICULTY",
+      "type": "String",
+      "description": "Default song difficulty. (normal)"
+    },
+    {
+      "name": "DEFAULT_STAGE",
+      "type": "String",
+      "description": "Default stage. (stage)"
+    },
+    {
+      "name": "DEFAULT_SCROLL_SPEED",
+      "type": "Float",
+      "description": "Default note scroll speed."
+    },
+    {
+      "name": "DEFAULT_HEALTH_ICON",
+      "type": "String",
+      "description": "Default health icon name."
+    },
+    {
+      "name": "DEFAULT_LANGUAGE",
+      "type": "String",
+      "description": "Default language ID. (en)"
+    },
+    {
+      "name": "DEFAULT_LANGUAGE_NAME",
+      "type": "String",
+      "description": "Default language display name. (English)"
+    },
+    {
+      "name": "BLACKLISTED_LANGUAGES",
+      "type": "Array<String>",
+      "description": "Language IDs that are blacklisted from use."
+    },
+    {
+      "name": "WHITELISTED_LANGUAGES",
+      "type": "Array<String>",
+      "description": "If not empty, only these language IDs can be used."
+    },
+    {
+      "name": "DEFAULT_BPM",
+      "type": "Float",
+      "description": "Default BPM for songs."
+    },
+    {
+      "name": "DEFAULT_BEATS_PER_MEASURE",
+      "type": "Int",
+      "description": "Default beats per measure."
+    },
+    {
+      "name": "DEFAULT_STEPS_PER_BEAT",
+      "type": "Int",
+      "description": "Default steps per beat."
+    },
+    {
+      "name": "DEFAULT_COLOR",
+      "type": "FlxColor",
+      "description": "Default background color for songs."
+    },
+    {
+      "name": "DEFAULT_WEEK_COLOR",
+      "type": "FlxColor",
+      "description": "Default background color for weeks."
+    },
+    {
+      "name": "DEFAULT_COOP_ALLOWED",
+      "type": "Bool",
+      "description": "Whether coop mode is allowed by default."
+    },
+    {
+      "name": "DEFAULT_OPPONENT_MODE_ALLOWED",
+      "type": "Bool",
+      "description": "Whether opponent mode is allowed by default."
+    },
+    {
+      "name": "DEFAULT_COOP_MODE",
+      "type": "Bool",
+      "description": "Default coop mode state."
+    },
+    {
+      "name": "DEFAULT_OPPONENT_MODE",
+      "type": "Bool",
+      "description": "Default opponent mode state."
+    },
+    {
+      "name": "DEFAULT_NOTE_MS_LIMIT",
+      "type": "Float",
+      "description": "Maximum note ms offset before a note is ignored."
+    },
+    {
+      "name": "DEFAULT_NOTE_SCALE",
+      "type": "Float",
+      "description": "Default note scale."
+    },
+    {
+      "name": "DEFAULT_GAMEOVER_CHARACTER",
+      "type": "String",
+      "description": "Default game over character. (bf-dead)"
+    },
+    {
+      "name": "DEFAULT_CAM_ZOOM",
+      "type": "Float",
+      "description": "Default camera zoom level."
+    },
+    {
+      "name": "DEFAULT_HUD_ZOOM",
+      "type": "Float",
+      "description": "Default HUD zoom level."
+    },
+    {
+      "name": "DEFAULT_ZOOM",
+      "type": "Float",
+      "description": "Default stage zoom level."
+    },
+    {
+      "name": "DEFAULT_ZOOM_LERP",
+      "type": "Float",
+      "description": "Default zoom lerp speed."
+    },
+    {
+      "name": "DEFAULT_CAM_ZOOM_LERP",
+      "type": "Float",
+      "description": "Default camera zoom lerp speed."
+    },
+    {
+      "name": "DEFAULT_HUD_ZOOM_LERP",
+      "type": "Float",
+      "description": "Default HUD zoom lerp speed."
+    },
+    {
+      "name": "DEFAULT_CAM_ZOOM_MULT",
+      "type": "Float",
+      "description": "Default camera zoom multiplier on beat."
+    },
+    {
+      "name": "DEFAULT_HUD_ZOOM_MULT",
+      "type": "Float",
+      "description": "Default HUD zoom multiplier on beat."
+    },
+    {
+      "name": "MAX_CAMERA_ZOOM_MULT",
+      "type": "Float",
+      "description": "Maximum camera zoom multiplier."
+    },
+    {
+      "name": "USE_CAM_ZOOM_MULT",
+      "type": "Bool",
+      "description": "Whether camera zoom multiplier is used."
+    },
+    {
+      "name": "USE_LEGACY_ZOOM_FACTOR",
+      "type": "Bool",
+      "description": "Whether legacy zoom factor behavior is used."
+    },
+    {
+      "name": "USE_LEGACY_TIMING",
+      "type": "Bool",
+      "description": "Whether legacy timing behavior is used."
+    },
+    {
+      "name": "SUSTAINS_AS_ONE_NOTE",
+      "type": "Bool",
+      "description": "Whether sustain notes count as one note."
+    },
+    {
+      "name": "DEFAULT_FONT",
+      "type": "String",
+      "description": "Default font filename. (vcr.ttf)"
+    },
+    {
+      "name": "DEFAULT_FONT_SIZE",
+      "type": "Int",
+      "description": "Default font size."
+    },
+    {
+      "name": "DEFAULT_ALT_ANIM_SUFFIX",
+      "type": "String",
+      "description": "Suffix used for alt animations. (-alt)"
+    },
+    {
+      "name": "DEFAULT_PAUSE_ITEMS",
+      "type": "Array<String>",
+      "description": "Default pause menu items."
+    },
+    {
+      "name": "DEFAULT_CUTSCENE_PAUSE_ITEMS",
+      "type": "Array<String>",
+      "description": "Default cutscene pause menu items."
+    },
+    {
+      "name": "DEFAULT_GITAROO",
+      "type": "Bool",
+      "description": "Whether the Gitaroo easter egg is enabled."
+    },
+    {
+      "name": "GITAROO_CHANCE",
+      "type": "Float",
+      "description": "Chance of triggering the Gitaroo easter egg."
+    },
+    {
+      "name": "DEFAULT_MUTE_VOCALS_ON_MISS",
+      "type": "Bool",
+      "description": "Whether vocals are muted on miss by default."
+    },
+    {
+      "name": "DEFAULT_MAX_HEALTH",
+      "type": "Float",
+      "description": "Default maximum health value."
+    },
+    {
+      "name": "DEFAULT_ICONBOP",
+      "type": "Bool",
+      "description": "Whether health icons bop on beat by default."
+    },
+    {
+      "name": "BOP_ICON_SCALE",
+      "type": "Float",
+      "description": "Scale applied to icons when bopping."
+    },
+    {
+      "name": "PIXEL_ART_SCALE",
+      "type": "Float",
+      "description": "Scale used for pixel art stages."
+    },
+    {
+      "name": "DEFAULT_STRUM_AMOUNT",
+      "type": "Int",
+      "description": "Default number of strums per strumline."
+    },
+    {
+      "name": "DEFAULT_CAMERA_FOLLOW_SPEED",
+      "type": "Float",
+      "description": "Default camera follow lerp speed."
+    },
+    {
+      "name": "DEFAULT_MENU_MUSIC",
+      "type": "String",
+      "description": "Default main menu music path."
+    },
+    {
+      "name": "DEFAULT_PAUSE_MENU_MUSIC",
+      "type": "String",
+      "description": "Default pause menu music path."
+    },
+    {
+      "name": "DEFAULT_GAMEOVER_MUSIC",
+      "type": "String",
+      "description": "Default game over music path."
+    },
+    {
+      "name": "DEFAULT_MISS_SOUNDS",
+      "type": "Array<String>",
+      "description": "Default miss sound paths."
+    },
+    {
+      "name": "DEFAULT_INTRO_SOUNDS",
+      "type": "Array<String>",
+      "description": "Default intro countdown sound paths."
+    },
+    {
+      "name": "DEFAULT_MENU_SCROLL_SOUND",
+      "type": "String",
+      "description": "Default menu scroll sound path."
+    },
+    {
+      "name": "DEFAULT_MENU_CONFIRM_SOUND",
+      "type": "String",
+      "description": "Default menu confirm sound path."
+    },
+    {
+      "name": "DEFAULT_MENU_CANCEL_SOUND",
+      "type": "String",
+      "description": "Default menu cancel sound path."
+    },
+    {
+      "name": "DEFAULT_GLSL_VERSION",
+      "type": "String",
+      "description": "Default GLSL shader version string."
+    },
+    {
+      "name": "USER_AGENT",
+      "type": "String",
+      "description": "User-Agent string used in HTTP requests."
+    },
+    {
+      "name": "DISABLE_EDITORS",
+      "type": "Bool",
+      "description": "If true, disables all editors."
+    },
+    {
+      "name": "DISABLE_WARNING_SCREEN",
+      "type": "Bool",
+      "description": "If true, disables the warning screen."
+    },
+    {
+      "name": "DISABLE_TRANSITIONS",
+      "type": "Bool",
+      "description": "If true, disables state transitions."
+    },
+    {
+      "name": "DISABLE_LANGUAGES",
+      "type": "Bool",
+      "description": "If true, disables the language system."
+    },
+    {
+      "name": "DISABLE_AUTOUPDATER",
+      "type": "Bool",
+      "description": "If true, disables the auto-updater."
+    },
+    {
+      "name": "DEFAULT_TRANSITION_SCRIPT",
+      "type": "String",
+      "description": "Default transition script path."
+    },
+    {
+      "name": "DEFAULT_PAUSE_SCRIPT",
+      "type": "String",
+      "description": "Default pause substate script path."
+    },
+    {
+      "name": "DEFAULT_GAMEOVER_SCRIPT",
+      "type": "String",
+      "description": "Default game over substate script path."
+    },
+    {
+      "name": "URL_WIKI",
+      "type": "String",
+      "description": "URL to the Codename Engine wiki."
+    },
+    {
+      "name": "URL_EDITOR_FALLBACK",
+      "type": "String",
+      "description": "Fallback URL shown when editor docs are unavailable."
+    },
+    {
+      "name": "URL_FNF_ITCH",
+      "type": "String",
+      "description": "URL to the original FNF itch.io page."
+    },
+    {
+      "name": "SONGS_LIST_MOD_MODE",
+      "type": "String",
+      "description": "How mods affect the songs list. (prepend, override, append)"
+    },
+    {
+      "name": "WEEKS_LIST_MOD_MODE",
+      "type": "String",
+      "description": "How mods affect the weeks list. (prepend, override, append)"
+    },
+    {
+      "name": "JSON_PRETTY_PRINT",
+      "type": "String",
+      "description": "Indentation string used when pretty-printing JSON."
+    },
+    {
+      "name": "UNDO_PREFIX",
+      "type": "String",
+      "description": "Prefix added to undo history entries."
+    }
   ],
   "members": [],
   "functions": [
-    { "name": "loadFromData", "args": [{ "name": "flags", "type": "Map<String, String>", "optional": false }, { "name": "data", "type": "String", "optional": false }], "returns": "Void", "description": "Parses an INI string and loads its values into the flags map." },
-    { "name": "loadFromDatas", "args": [{ "name": "datas", "type": "Array<String>", "optional": false }], "returns": "Map<String, String>", "description": "Loads flags from multiple INI strings and calls loadPost." },
-    { "name": "parseFlags", "args": [{ "name": "flags", "type": "Map<String, String>", "optional": false }], "returns": "Void", "description": "Applies a parsed flags map to the Flags class fields." },
-    { "name": "load", "args": [{ "name": "libs", "type": "Array<LimeAssetLibrary>", "optional": true }], "returns": "Void", "description": "Loads all flags from asset libraries, reading modpack INI files." }
+    {
+      "name": "loadFromData",
+      "args": [
+        { "name": "flags", "type": "Map<String, String>", "optional": false },
+        { "name": "data", "type": "String", "optional": false }
+      ],
+      "returns": "Void",
+      "description": "Parses an INI string and loads its values into the flags map."
+    },
+    {
+      "name": "loadFromDatas",
+      "args": [{ "name": "datas", "type": "Array<String>", "optional": false }],
+      "returns": "Map<String, String>",
+      "description": "Loads flags from multiple INI strings and calls loadPost."
+    },
+    {
+      "name": "parseFlags",
+      "args": [
+        { "name": "flags", "type": "Map<String, String>", "optional": false }
+      ],
+      "returns": "Void",
+      "description": "Applies a parsed flags map to the Flags class fields."
+    },
+    {
+      "name": "load",
+      "args": [
+        { "name": "libs", "type": "Array<LimeAssetLibrary>", "optional": true }
+      ],
+      "returns": "Void",
+      "description": "Loads all flags from asset libraries, reading modpack INI files."
+    }
   ]
 }

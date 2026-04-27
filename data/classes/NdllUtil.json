@@ -1,0 +1,34 @@
+{
+  "statics": [
+    { "name": "os", "type": "String", "description": "The current target operating system string used for NDLL resolution (e.g. 'windows', 'linux', 'mac'). Only available if NDLLS_SUPPORTED is defined." }
+  ],
+  "members": [],
+  "functions": [
+    {
+      "name": "getFunction",
+      "args": [
+        { "name": "ndll", "type": "String", "optional": false },
+        { "name": "name", "type": "String", "optional": false },
+        { "name": "args", "type": "Int", "optional": false }
+      ],
+      "returns": "Dynamic",
+      "description": "Loads a function from an NDLL using the standard platform-based naming scheme (name-os.ndll). Returns a callable dynamic wrapper supporting up to 25 arguments. If loading fails, returns a no-op function and logs a warning."
+    },
+    {
+      "name": "getFunctionFromPath",
+      "args": [
+        { "name": "ndll", "type": "String", "optional": false },
+        { "name": "name", "type": "String", "optional": false },
+        { "name": "args", "type": "Int", "optional": false }
+      ],
+      "returns": "Dynamic",
+      "description": "Loads a function from an NDLL at a specific asset path. Uses lime.system.CFFI.load internally. If the NDLL or function is not found, returns a no-op function and logs an error or warning."
+    },
+    {
+      "name": "noop",
+      "args": [],
+      "returns": "Void",
+      "description": "Internal empty fallback function returned when NDLL loading or function resolution fails."
+    }
+  ]
+}
