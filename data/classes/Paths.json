@@ -1,0 +1,762 @@
+{
+  "statics": [
+    {
+      "name": "assetsTree",
+      "type": "AssetsLibraryList",
+      "description": "The Asset Library List."
+    },
+    {
+      "name": "tempFramesCache",
+      "type": "Map<String, FlxFramesCollection>",
+      "description": "Cache of all loaded frames."
+    }
+  ],
+  "members": [],
+  "functions": [
+    {
+      "name": "awd",
+      "args": [
+        {
+          "name": "key",
+          "type": "String",
+          "optional": false
+        }
+      ],
+      "returns": "String",
+      "description": "Returns the path of an AWD (Away3D) file specified by key."
+    },
+    {
+      "name": "character",
+      "args": [
+        {
+          "name": "character",
+          "type": "String",
+          "optional": false
+        }
+      ],
+      "returns": "String",
+      "description": "Returns the path of a character."
+    },
+    {
+      "name": "chart",
+      "args": [
+        {
+          "name": "song",
+          "type": "String",
+          "optional": false
+        },
+        {
+          "name": "difficulty",
+          "type": "String",
+          "optional": true
+        },
+        {
+          "name": "variant",
+          "type": "String",
+          "optional": true
+        }
+      ],
+      "returns": "String",
+      "description": "Returns the path of a chart (and its varient + difficulty) specified by song."
+    },
+    {
+      "name": "dae",
+      "args": [
+        {
+          "name": "key",
+          "type": "String",
+          "optional": false
+        }
+      ],
+      "returns": "String",
+      "description": "Returns the path of a DAE (Collada) file specified by key."
+    },
+    {
+      "name": "file",
+      "args": [
+        {
+          "name": "file",
+          "type": "String",
+          "optional": false
+        },
+        {
+          "name": "library",
+          "type": "String",
+          "optional": true
+        }
+      ],
+      "returns": "String",
+      "description": "Returns the path of a file."
+    },
+    {
+      "name": "font",
+      "args": [
+        {
+          "name": "key",
+          "type": "String",
+          "optional": false
+        }
+      ],
+      "returns": "String",
+      "description": "Returns the path of a font specified by key."
+    },
+    {
+      "name": "fragShader",
+      "args": [
+        {
+          "name": "key",
+          "type": "String",
+          "optional": false
+        },
+        {
+          "name": "library",
+          "type": "String",
+          "optional": true
+        }
+      ],
+      "returns": "String",
+      "description": "Returns the path of a frag (Fragment) shader specified by key."
+    },
+    {
+      "name": "framesExists",
+      "args": [
+        {
+          "name": "key",
+          "type": "String",
+          "optional": false
+        },
+        {
+          "name": "checkAtlas",
+          "type": "Bool",
+          "optional": false
+        },
+        {
+          "name": "checkMulti",
+          "type": "Bool",
+          "optional": false
+        },
+        {
+          "name": "assetsPath",
+          "type": "Bool",
+          "optional": false
+        },
+        {
+          "name": "library",
+          "type": "String",
+          "optional": true
+        }
+      ],
+      "returns": "Bool",
+      "description": "Returns if an image has its frames."
+    },
+    {
+      "name": "getAsepriteAtlas",
+      "args": [
+        {
+          "name": "key",
+          "type": "String",
+          "optional": false
+        },
+        {
+          "name": "library",
+          "type": "String",
+          "optional": true
+        },
+        {
+          "name": "ext",
+          "type": "String",
+          "optional": true
+        }
+      ],
+      "returns": "FlxAtlasFrames",
+      "description": "Returns FlxAtlasFrames of an Aesprite atlas specified by key."
+    },
+    {
+      "name": "getAsepriteAtlasAlt",
+      "args": [
+        {
+          "name": "key",
+          "type": "String",
+          "optional": false
+        },
+        {
+          "name": "ext",
+          "type": "String",
+          "optional": true
+        }
+      ],
+      "returns": "FlxAtlasFrames",
+      "description": "Alternative version of getAespriteAtlas."
+    },
+    {
+      "name": "getAssetsRoot",
+      "args": [],
+      "returns": "String",
+      "description": "Returns the root asset folder."
+    },
+    {
+      "name": "getFolderContent",
+      "args": [
+        {
+          "name": "key",
+          "type": "String",
+          "optional": false
+        },
+        {
+          "name": "addPath",
+          "type": "Bool",
+          "optional": false
+        },
+        {
+          "name": "source",
+          "type": "AssetSource",
+          "optional": false
+        },
+        {
+          "name": "noExtension",
+          "type": "Bool",
+          "optional": false
+        }
+      ],
+      "returns": "Array<String>",
+      "description": "Returns the files of a folder specified by key."
+    },
+    {
+      "name": "getFolderDirectories",
+      "args": [
+        {
+          "name": "key",
+          "type": "String",
+          "optional": false
+        },
+        {
+          "name": "addPath",
+          "type": "Bool",
+          "optional": false
+        },
+        {
+          "name": "source",
+          "type": "AssetSource",
+          "optional": false
+        }
+      ],
+      "returns": "Array<String>",
+      "description": "Returns the directories of a folder specified by key."
+    },
+    {
+      "name": "getFontName",
+      "args": [
+        {
+          "name": "font",
+          "type": "String",
+          "optional": false
+        }
+      ],
+      "returns": "String",
+      "description": "Gets the name of a registered font."
+    },
+    {
+      "name": "getFrames",
+      "args": [
+        {
+          "name": "key",
+          "type": "String",
+          "optional": false
+        },
+        {
+          "name": "assetsPath",
+          "type": "Bool",
+          "optional": false
+        },
+        {
+          "name": "library",
+          "type": "String",
+          "optional": true
+        },
+        {
+          "name": "ext",
+          "type": "String",
+          "optional": true
+        },
+        {
+          "name": "animateSettings",
+          "type": "FlxAnimateSettings",
+          "optional": true
+        }
+      ],
+      "returns": "Null<FlxFramesCollection>",
+      "description": "Gets frames at specified path."
+    },
+    {
+      "name": "getPackerAtlas",
+      "args": [
+        {
+          "name": "key",
+          "type": "String",
+          "optional": false
+        },
+        {
+          "name": "library",
+          "type": "String",
+          "optional": true
+        },
+        {
+          "name": "ext",
+          "type": "String",
+          "optional": true
+        }
+      ],
+      "returns": "FlxAtlasFrames",
+      "description": "Returns FlxAtlasFrames of a Packer atlas specified by key."
+    },
+    {
+      "name": "getPackerAtlasAlt",
+      "args": [
+        {
+          "name": "key",
+          "type": "String",
+          "optional": false
+        },
+        {
+          "name": "ext",
+          "type": "String",
+          "optional": true
+        }
+      ],
+      "returns": "FlxAtlasFrames",
+      "description": "Alternative version of getPackerAtlas."
+    },
+    {
+      "name": "getPath",
+      "args": [
+        {
+          "name": "file",
+          "type": "String",
+          "optional": false
+        },
+        {
+          "name": "library",
+          "type": "String",
+          "optional": true
+        }
+      ],
+      "returns": "String",
+      "description": "Returns the FULL path of a file specified by file. (Don't use this unless you REALLY have to.)"
+    },
+    {
+      "name": "getSparrowAtlas",
+      "args": [
+        {
+          "name": "key",
+          "type": "String",
+          "optional": false
+        },
+        {
+          "name": "library",
+          "type": "String",
+          "optional": true
+        },
+        {
+          "name": "ext",
+          "type": "String",
+          "optional": true
+        }
+      ],
+      "returns": "FlxAtlasFrames",
+      "description": "Returns FlxAtlasFrames of a Sparrow atlas specified by key."
+    },
+    {
+      "name": "getSparrowAtlasAlt",
+      "args": [
+        {
+          "name": "key",
+          "type": "String",
+          "optional": false
+        },
+        {
+          "name": "ext",
+          "type": "String",
+          "optional": true
+        }
+      ],
+      "returns": "FlxAtlasFrames",
+      "description": "Alternate version of getSparrowAtlas."
+    },
+    {
+      "name": "getAnimateAtlasAlt",
+      "args": [
+        {
+          "name": "key",
+          "type": "String",
+          "optional": false
+        },
+        {
+          "name": "settings",
+          "type": "FlxAnimateSettings",
+          "optional": true
+        }
+      ],
+      "returns": "FlxAtlasFrames",
+      "description": "Returns FlxAtlasFrames of an Animate Atlas specified by key."
+    },
+    {
+      "name": "image",
+      "args": [
+        {
+          "name": "key",
+          "type": "String",
+          "optional": false
+        },
+        {
+          "name": "library",
+          "type": "String",
+          "optional": true
+        },
+        {
+          "name": "checkForAtlas",
+          "type": "Bool",
+          "optional": false
+        },
+        {
+          "name": "ext",
+          "type": "String",
+          "optional": true
+        }
+      ],
+      "returns": "String",
+      "description": "Returns the path of an image specified by key."
+    },
+    {
+      "name": "ini",
+      "args": [
+        {
+          "name": "key",
+          "type": "String",
+          "optional": false
+        },
+        {
+          "name": "library",
+          "type": "String",
+          "optional": true
+        }
+      ],
+      "returns": "String",
+      "description": "Returns the path of an ini file specified by key."
+    },
+    {
+      "name": "init",
+      "args": [],
+      "returns": "Void",
+      "description": "Clears the tempFrameCache. (You will NOT need to use this.)"
+    },
+    {
+      "name": "inst",
+      "args": [
+        {
+          "name": "song",
+          "type": "String",
+          "optional": false
+        },
+        {
+          "name": "difficulty",
+          "type": "String",
+          "optional": true
+        },
+        {
+          "name": "suffix",
+          "type": "String",
+          "optional": true
+        },
+        {
+          "name": "ext",
+          "type": "String",
+          "optional": true
+        }
+      ],
+      "returns": "String",
+      "description": "Returns the path of the instrumental from a song."
+    },
+    {
+      "name": "json",
+      "args": [
+        {
+          "name": "key",
+          "type": "String",
+          "optional": false
+        },
+        {
+          "name": "library",
+          "type": "String",
+          "optional": true
+        }
+      ],
+      "returns": "String",
+      "description": "Returns the path of a json file specified by key."
+    },
+    {
+      "name": "md2",
+      "args": [
+        {
+          "name": "key",
+          "type": "String",
+          "optional": false
+        }
+      ],
+      "returns": "String",
+      "description": "Returns the path of a md2 model file specified by key."
+    },
+    {
+      "name": "md5",
+      "args": [
+        {
+          "name": "key",
+          "type": "String",
+          "optional": false
+        }
+      ],
+      "returns": "String",
+      "description": "Returns the path of a md5 model file specified by key."
+    },
+    {
+      "name": "music",
+      "args": [
+        {
+          "name": "key",
+          "type": "String",
+          "optional": false
+        },
+        {
+          "name": "library",
+          "type": "String",
+          "optional": true
+        }
+      ],
+      "returns": "String",
+      "description": "Returns the path of a sound from the music folder specified by key."
+    },
+    {
+      "name": "ndll",
+      "args": [
+        {
+          "name": "key",
+          "type": "String",
+          "optional": false
+        }
+      ],
+      "returns": "String",
+      "description": "Returns the path of an ndll specified by key."
+    },
+    {
+      "name": "obj",
+      "args": [
+        {
+          "name": "key",
+          "type": "String",
+          "optional": false
+        }
+      ],
+      "returns": "String",
+      "description": "Returns the path of an object specified by key."
+    },
+    {
+      "name": "pack",
+      "args": [
+        {
+          "name": "key",
+          "type": "String",
+          "optional": false
+        },
+        {
+          "name": "library",
+          "type": "String",
+          "optional": true
+        }
+      ],
+      "returns": "String",
+      "description": "Returns the path of a pack file specified by key."
+    },
+    {
+      "name": "ps1",
+      "args": [
+        {
+          "name": "key",
+          "type": "String",
+          "optional": false
+        },
+        {
+          "name": "library",
+          "type": "String",
+          "optional": true
+        }
+      ],
+      "returns": "String",
+      "description": "Returns the path of a Powershell script specified by key."
+    },
+    {
+      "name": "script",
+      "args": [
+        {
+          "name": "key",
+          "type": "String",
+          "optional": false
+        },
+        {
+          "name": "library",
+          "type": "String",
+          "optional": true
+        },
+        {
+          "name": "isAssetsPath",
+          "type": "Bool",
+          "optional": false
+        }
+      ],
+      "returns": "String",
+      "description": "Returns the path of a CNE script specified by key."
+    },
+    {
+      "name": "sound",
+      "args": [
+        {
+          "name": "key",
+          "type": "String",
+          "optional": false
+        },
+        {
+          "name": "library",
+          "type": "String",
+          "optional": true
+        },
+        {
+          "name": "ext",
+          "type": "String",
+          "optional": true
+        }
+      ],
+      "returns": "String",
+      "description": "Returns the path of a sound specified by key."
+    },
+    {
+      "name": "soundRandom",
+      "args": [
+        {
+          "name": "key",
+          "type": "String",
+          "optional": false
+        },
+        {
+          "name": "min",
+          "type": "Int",
+          "optional": false
+        },
+        {
+          "name": "max",
+          "type": "Int",
+          "optional": false
+        },
+        {
+          "name": "library",
+          "type": "String",
+          "optional": true
+        }
+      ],
+      "returns": "String",
+      "description": "Appends a random value from min to max to key, and returns a sound with that key."
+    },
+    {
+      "name": "txt",
+      "args": [
+        {
+          "name": "key",
+          "type": "String",
+          "optional": false
+        },
+        {
+          "name": "library",
+          "type": "String",
+          "optional": true
+        }
+      ],
+      "returns": "String",
+      "description": "Returns the path of a txt specified by key."
+    },
+    {
+      "name": "vertShader",
+      "args": [
+        {
+          "name": "key",
+          "type": "String",
+          "optional": false
+        },
+        {
+          "name": "library",
+          "type": "String",
+          "optional": true
+        }
+      ],
+      "returns": "String",
+      "description": "Returns the path of a vertex (glsl) shader specified by key."
+    },
+    {
+      "name": "video",
+      "args": [
+        {
+          "name": "key",
+          "type": "String",
+          "optional": false
+        },
+        {
+          "name": "ext",
+          "type": "String",
+          "optional": true
+        }
+      ],
+      "returns": "String",
+      "description": "Returns the path of a video specified by key."
+    },
+    {
+      "name": "voices",
+      "args": [
+        {
+          "name": "song",
+          "type": "String",
+          "optional": false
+        },
+        {
+          "name": "difficulty",
+          "type": "String",
+          "optional": true
+        },
+        {
+          "name": "suffix",
+          "type": "String",
+          "optional": true
+        },
+        {
+          "name": "ext",
+          "type": "String",
+          "optional": true
+        }
+      ],
+      "returns": "String",
+      "description": "Returns the path of the vocals file from a song."
+    },
+    {
+      "name": "xml",
+      "args": [
+        {
+          "name": "key",
+          "type": "String",
+          "optional": false
+        },
+        {
+          "name": "library",
+          "type": "String",
+          "optional": true
+        }
+      ],
+      "returns": "String",
+      "description": "Returns the path of an xml specified by key."
+    }
+  ]
+}
