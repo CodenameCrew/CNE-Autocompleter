@@ -435,7 +435,7 @@ export function activate(context: vscode.ExtensionContext) {
             const text = document.getText();
             const diagnostics: vscode.Diagnostic[] = [];
             for (const lib of preImportedLibraries) {
-                const regex = new RegExp(`import\\s+${lib.replace('.', '\\.')}`, 'g');
+                const regex = new RegExp(`import\\s+${lib.replace(/\./g, '\\.')}(?![\\w.])`, 'g');
                 let match;
                 while ((match = regex.exec(text)) !== null) diagnostics.push(new vscode.Diagnostic(new vscode.Range(document.positionAt(match.index), document.positionAt(match.index + match[0].length)), `The library '${lib}' is already pre-imported, No need to import it in.`, vscode.DiagnosticSeverity.Warning));
             }
