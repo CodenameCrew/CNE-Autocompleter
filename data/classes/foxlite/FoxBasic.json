@@ -1,0 +1,62 @@
+{
+  "statics": [],
+  "members": [
+    {
+      "name": "name",
+      "type": "String",
+      "description": "The name of this basic."
+    },
+    {
+      "name": "visible",
+      "type": "Bool",
+      "description": "Whether this basic is visible. Affects rendering and draw group rebuilding."
+    },
+    {
+      "name": "active",
+      "type": "Bool",
+      "description": "Whether this basic gets updated."
+    },
+    {
+      "name": "scene",
+      "type": "FoxScene",
+      "description": "The scene this basic belongs to."
+    },
+    {
+      "name": "animation",
+      "type": "FoxAnimationPlayer",
+      "description": "An animation controller for this basic. Although properties have to be manually linked, this is intended to be a general-purpose animator for this object."
+    }
+  ],
+  "functions": [
+    {
+      "name": "new",
+      "args": [],
+      "returns": "FoxBasic",
+      "description": "Creates a new FoxBasic."
+    },
+    {
+      "name": "update",
+      "args": [{ "name": "dt", "type": "Float", "optional": false }],
+      "returns": "Void",
+      "description": "Updates this basic and its animation controller if active."
+    },
+    {
+      "name": "draw",
+      "args": [{ "name": "camera", "type": "FoxCamera", "optional": false }],
+      "returns": "Void",
+      "description": "Intended for transforms, actual drawing happens in the camera render pass."
+    },
+    {
+      "name": "pushDrawData",
+      "args": [{ "name": "scene", "type": "FoxScene", "optional": false }],
+      "returns": "Void",
+      "description": "This function gets called when the scene starts building draw groups. It should call the scene's addToDrawGroups() function for every drawable of this object. Override this with your custom draw data function. Internal use only, it is a performance critical operation, keep it fast."
+    },
+    {
+      "name": "destroy",
+      "args": [],
+      "returns": "Void",
+      "description": "Removes this basic from its scene and clears its animation controller."
+    }
+  ]
+}

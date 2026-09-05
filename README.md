@@ -20,6 +20,37 @@ Autocomplete for Codename XML Files (Only stages currently) & Haxe scripts (HScr
 
 ## Release Notes
 
+### 0.8.0
+
+- Added [Foxlite](https://github.com/dwdvIl/foxlite) (3D) class support, and reorganized class data into per-library subfolders internally so lookups don't care which library a class came from
+- Added Signature Help: as you type a function call, you'll now see its parameters pop up with the one you're currently on highlighted
+- Hover info for classes now shows each member/static/function in its own colored Haxe code block instead of a flat description list
+- Hover and autocomplete now also infer a variable's type from function parameters (e.g. `function onUpdate(cam:FoxCamera)`), not just `var` declarations
+- Added hover support for functions, variables, and parameters you write yourself in your own script, not just library classes
+- Fixed hovering not showing anything for instance fields (e.g. `camera.fov`) - it only worked for functions and statics before
+- Fixed importing function parameters: parameters that are already built into Haxe are no longer incorrectly imported.
+```haxe
+import Int; // no longer imports `Int`
+
+function stepHit(curStep:Int) {}
+```
+
+
+**Added supported classes:**
+
+| Class |
+|---|
+| `FoxBasic` |
+| `FoxCache` |
+| `FoxCamera` |
+| `FoxInstancedModel` |
+| `FoxLayer` |
+| `FoxModel` |
+| `FoxObject` |
+| `FoxOfflineScene` |
+| `FoxScene` |
+| `FoxShader` |
+
 ### 0.7.1
 
 - Added `modpack.ini` Support, You can now add Flags without having to look at the API doc.

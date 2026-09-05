@@ -1,0 +1,72 @@
+{
+  "statics": [
+    {
+      "name": "instance",
+      "type": "FoxCache",
+      "description": "The singleton instance of FoxCache."
+    }
+  ],
+  "members": [
+    {
+      "name": "freeResourcesOnStateSwitch",
+      "type": "Bool",
+      "description": "If enabled, will free cached resources on flixel's preStateSwitch signal."
+    }
+  ],
+  "functions": [
+    {
+      "name": "textures",
+      "args": [],
+      "returns": "Map<String, FoxTexture>",
+      "description": "Returns the cached texture collection."
+    },
+    {
+      "name": "shaders",
+      "args": [],
+      "returns": "Map<String, FoxShader>",
+      "description": "Returns the cached shader collection."
+    },
+    {
+      "name": "shaderIncludes",
+      "args": [],
+      "returns": "Map<String, String>",
+      "description": "Returns the cached shader #include source collection."
+    },
+    {
+      "name": "materialLibs",
+      "args": [],
+      "returns": "Map<String, Map<String, FoxMaterial>>",
+      "description": "Returns the cached material library collection."
+    },
+    {
+      "name": "meshes",
+      "args": [],
+      "returns": "Map<String, Array<FoxMesh>>",
+      "description": "Returns the cached mesh collection."
+    },
+    {
+      "name": "animationLibs",
+      "args": [],
+      "returns": "Map<String, Map<String, FoxAnimation>>",
+      "description": "Returns the cached animation library collection."
+    },
+    {
+      "name": "skins",
+      "args": [],
+      "returns": "Map<String, Array<FoxSkinData>>",
+      "description": "Returns the cached skin collection."
+    },
+    {
+      "name": "freeResources",
+      "args": [],
+      "returns": "Void",
+      "description": "Destroys and clears every cached resource: textures, shaders, material libs, meshes, animation libs and skins."
+    },
+    {
+      "name": "cleanup",
+      "args": [],
+      "returns": "Void",
+      "description": "Calls freeResources() on the singleton instance if freeResourcesOnStateSwitch is enabled."
+    }
+  ]
+}

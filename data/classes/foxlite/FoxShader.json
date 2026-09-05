@@ -1,0 +1,308 @@
+{
+  "statics": [
+    {
+      "name": "BASIC",
+      "type": "String",
+      "description": "Asset path for the built-in basic shader."
+    },
+    {
+      "name": "MINIMAL",
+      "type": "String",
+      "description": "Asset path for the built-in minimal shader."
+    },
+    {
+      "name": "SKY",
+      "type": "String",
+      "description": "Asset path for the built-in sky panorama shader."
+    },
+    {
+      "name": "PRAGMA_FOXFLAGS",
+      "type": "String",
+      "description": "Pragma marker replaced with the shader's define flags during compilation."
+    },
+    {
+      "name": "PRAGMA_SHADOW_PROGRAM",
+      "type": "String",
+      "description": "Pragma marker used to detect the shadow-pass program check."
+    },
+    {
+      "name": "PRAGMA_OPENGL3",
+      "type": "String",
+      "description": "Pragma marker replaced with the OpenGL 3 (or WebGL) version directive."
+    },
+    {
+      "name": "PRAGMA_OPENGL4",
+      "type": "String",
+      "description": "Pragma marker replaced with the OpenGL 4 version directive (desktop only)."
+    },
+    {
+      "name": "OPENGL3_VERSION",
+      "type": "String",
+      "description": "GLSL version directive for OpenGL 3 (#version 150)."
+    },
+    {
+      "name": "OPENGL3_VERSION_ES",
+      "type": "String",
+      "description": "GLSL version directive for OpenGL ES / WebGL (#version 300 es)."
+    },
+    {
+      "name": "OPENGL4_VERSION",
+      "type": "String",
+      "description": "GLSL version directive for OpenGL 4, desktop platforms only (#version 450)."
+    },
+    {
+      "name": "GLOBAL_FLAGS",
+      "type": "Array<String>",
+      "description": "Shader flags applied to every shader in addition to the ones passed explicitly."
+    }
+  ],
+  "members": [
+    {
+      "name": "shadow",
+      "type": "FoxShader",
+      "description": "Version of this shader used for the shadow pass only."
+    },
+    {
+      "name": "assetsKey",
+      "type": "String",
+      "description": "The asset name this shader was loaded from, used as its cache key."
+    },
+    {
+      "name": "program",
+      "type": "Program3D",
+      "description": "The compiled Program3D backing this shader."
+    },
+    {
+      "name": "textureInput",
+      "type": "Map<String, FoxShaderTextureInput>",
+      "description": "Texture sampler uniforms set on this shader, read when rendering."
+    },
+    {
+      "name": "uniformCache",
+      "type": "Map<String, FoxUniformCache>",
+      "description": "Cache of active uniform locations, types and sizes for this shader's program."
+    },
+    {
+      "name": "shaderDefines",
+      "type": "Array<String>",
+      "description": "The preprocessor flags used to compile this shader."
+    }
+  ],
+  "functions": [
+    {
+      "name": "new",
+      "args": [],
+      "returns": "FoxShader",
+      "description": "Creates a new, uncompiled FoxShader."
+    },
+    {
+      "name": "fromSources",
+      "args": [
+        { "name": "vert", "type": "String", "optional": false },
+        { "name": "frag", "type": "String", "optional": false },
+        { "name": "flags", "type": "Array<String>", "optional": true },
+        { "name": "output", "type": "FoxShader", "optional": true }
+      ],
+      "returns": "FoxShader",
+      "description": "Creates (or fills) a FoxShader from raw vertex and fragment sources, processing #include directives and foxlite pragmas, then compiles it along with its shadow-pass variant."
+    },
+    {
+      "name": "processIncludes",
+      "args": [{ "name": "source", "type": "String", "optional": false }],
+      "returns": "String",
+      "description": "Resolves #include directives in a shader source, using FoxLoaderUtil to load and cache the included files."
+    },
+    {
+      "name": "fromAsset",
+      "args": [
+        { "name": "name", "type": "String", "optional": false },
+        { "name": "flagsDefs", "type": "Array<String>", "optional": true }
+      ],
+      "returns": "FoxShader",
+      "description": "Loads a shader by asset name and flags, returning a cached instance if one already exists for that combination."
+    },
+    {
+      "name": "defineName",
+      "args": [{ "name": "name", "type": "String", "optional": false }],
+      "returns": "String",
+      "description": "Sanitizes a name into a valid preprocessor #define identifier."
+    },
+    {
+      "name": "compile",
+      "args": [],
+      "returns": "Void",
+      "description": "Compiles this shader's vertex and fragment sources and initializes its uniform/attribute cache. While uncompiled, no uniform should be set or they will be lost."
+    },
+    {
+      "name": "initCache",
+      "args": [],
+      "returns": "Void",
+      "description": "Rebuilds the uniform and attribute location caches from the compiled program."
+    },
+    {
+      "name": "combine",
+      "args": [
+        { "name": "shaderA", "type": "FoxShader", "optional": false },
+        { "name": "shaderB", "type": "FoxShader", "optional": false }
+      ],
+      "returns": "FoxShader",
+      "description": "Combines the fragment program from shaderA with the vertex program from shaderB into a new shader, without recompiling sources. Since it reuses the other shaders' programs, destroy() won't delete them, so destroying shaderA or shaderB afterwards will break this shader."
+    },
+    {
+      "name": "sanitizeFlags",
+      "args": [{ "name": "flags", "type": "Array<String>", "optional": false }],
+      "returns": "Array<String>",
+      "description": "Normalizes, deduplicates and sorts a list of shader flags, merging in GLOBAL_FLAGS."
+    },
+    {
+      "name": "recompile",
+      "args": [{ "name": "flags", "type": "Array<String>", "optional": true }],
+      "returns": "Void",
+      "description": "Recompiles this shader using its cached vert/frag sources, optionally with a new flags array. Reuses a cached program if one exists for the resulting flag combination."
+    },
+    {
+      "name": "getVertexShaderLog",
+      "args": [],
+      "returns": "String",
+      "description": "Returns the compile log for this shader's vertex program."
+    },
+    {
+      "name": "getFragmentShaderLog",
+      "args": [],
+      "returns": "String",
+      "description": "Returns the compile log for this shader's fragment program."
+    },
+    {
+      "name": "setFloat",
+      "args": [
+        { "name": "name", "type": "String", "optional": false },
+        { "name": "value", "type": "Float", "optional": false }
+      ],
+      "returns": "Void",
+      "description": "Sets a float uniform by name."
+    },
+    {
+      "name": "setInt",
+      "args": [
+        { "name": "name", "type": "String", "optional": false },
+        { "name": "value", "type": "Int", "optional": false }
+      ],
+      "returns": "Void",
+      "description": "Sets an int uniform by name."
+    },
+    {
+      "name": "setBool",
+      "args": [
+        { "name": "name", "type": "String", "optional": false },
+        { "name": "value", "type": "Bool", "optional": false }
+      ],
+      "returns": "Void",
+      "description": "Sets a bool uniform by name."
+    },
+    {
+      "name": "setSampler2D",
+      "args": [
+        { "name": "name", "type": "String", "optional": false },
+        { "name": "value", "type": "FoxTexture", "optional": false }
+      ],
+      "returns": "Void",
+      "description": "Sets a sampler2D texture input by uniform name. Pass null to remove it."
+    },
+    {
+      "name": "setFloatArray",
+      "args": [
+        { "name": "name", "type": "String", "optional": false },
+        { "name": "values", "type": "Array<Float>", "optional": false }
+      ],
+      "returns": "Void",
+      "description": "Sets a float, vecN or matN uniform (including arrays) by name."
+    },
+    {
+      "name": "setIntArray",
+      "args": [
+        { "name": "name", "type": "String", "optional": false },
+        { "name": "values", "type": "Array<Int>", "optional": false }
+      ],
+      "returns": "Void",
+      "description": "Sets an int, ivecN or bvecN uniform (including arrays) by name."
+    },
+    {
+      "name": "setBoolArray",
+      "args": [
+        { "name": "name", "type": "String", "optional": false },
+        { "name": "values", "type": "Array<Bool>", "optional": false }
+      ],
+      "returns": "Void",
+      "description": "Sets a bool, bvec2, bvec3 or bvec4 uniform by name."
+    },
+    {
+      "name": "setVector2",
+      "args": [
+        { "name": "name", "type": "String", "optional": false },
+        { "name": "v", "type": "Vector2", "optional": false }
+      ],
+      "returns": "Void",
+      "description": "Sets a vec2 uniform from a Vector2."
+    },
+    {
+      "name": "setVector3",
+      "args": [
+        { "name": "name", "type": "String", "optional": false },
+        { "name": "v", "type": "Vector3D", "optional": false }
+      ],
+      "returns": "Void",
+      "description": "Sets a vec3 uniform from a Vector3D."
+    },
+    {
+      "name": "setVector4",
+      "args": [
+        { "name": "name", "type": "String", "optional": false },
+        { "name": "v", "type": "Dynamic", "optional": false }
+      ],
+      "returns": "Void",
+      "description": "Sets a vec4 uniform from an object exposing x, y, z and w fields."
+    },
+    {
+      "name": "setMatrix4",
+      "args": [
+        { "name": "name", "type": "String", "optional": false },
+        { "name": "value", "type": "Matrix3D", "optional": false }
+      ],
+      "returns": "Void",
+      "description": "Sets a mat4 uniform from a Matrix3D."
+    },
+    {
+      "name": "setMatrix4Array_Raw",
+      "args": [
+        { "name": "name", "type": "String", "optional": false },
+        { "name": "value", "type": "Float32Array", "optional": false }
+      ],
+      "returns": "Void",
+      "description": "Sets a mat4 array uniform from a raw Float32Array."
+    },
+    {
+      "name": "getGLProgram",
+      "args": [],
+      "returns": "Dynamic",
+      "description": "Returns the underlying native GL program handle for this shader."
+    },
+    {
+      "name": "getGLShadowProgram",
+      "args": [],
+      "returns": "Dynamic",
+      "description": "Returns the underlying native GL program handle for this shader's shadow pass."
+    },
+    {
+      "name": "disposeProgram",
+      "args": [],
+      "returns": "Void",
+      "description": "Disposes this shader's GPU program (unless combined, in which case only references are cleared) and its shadow program."
+    },
+    {
+      "name": "destroy",
+      "args": [],
+      "returns": "Void",
+      "description": "Disposes the program, clears texture and uniform caches, removes this shader from the cache, and destroys its shadow shader."
+    }
+  ]
+}

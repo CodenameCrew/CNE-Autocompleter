@@ -1,0 +1,171 @@
+{
+  "statics": [],
+  "members": [
+    {
+      "name": "renderTargets",
+      "type": "Map<String, FoxFramebuffer>",
+      "description": "Scene render targets. You can add multiple of them and use them in your passes / shaders."
+    },
+    {
+      "name": "output",
+      "type": "String",
+      "description": "Scene output target, used as pixels for the sprite. For it to take effect, see setOutputDisplay()."
+    },
+    {
+      "name": "outputColorIndex",
+      "type": "Int",
+      "description": "The color index for the colorBuffers render target. Must be 0 if MRTs are not supported. For it to take effect, see setOutputDisplay()."
+    },
+    {
+      "name": "foxGroup",
+      "type": "FoxTypedGroup<FoxBasic>",
+      "description": "A FoxGroup containing all of foxlite's active objects (including other groups)."
+    },
+    {
+      "name": "foxCameras",
+      "type": "Array<FoxCamera>",
+      "description": "An array containing FoxCameras, intended to be used globally."
+    },
+    {
+      "name": "environment",
+      "type": "FoxEnvironment",
+      "description": "The scene environment, a holder object for global environment variables such as sky textures. Subject to change in the future."
+    },
+    {
+      "name": "drawGroups",
+      "type": "Array<FoxDrawTree>",
+      "description": "An array of BalancedTree containing sorted draw data, calculated per frame and processed per camera. Draw groups consist of a collection of materials and meshes that can be drawn at once in a target, which must exist on the scene as a FoxFramebuffer in renderTargets. Meant for post-processing, offscreen rendering and shadow passes."
+    },
+    {
+      "name": "timeScale",
+      "type": "Float",
+      "description": "Multiplier applied to the elapsed time on update."
+    },
+    {
+      "name": "context",
+      "type": "Context3D",
+      "description": "The Context3D used to render this scene."
+    },
+    {
+      "name": "onFramebufferResized",
+      "type": "FlxTypedSignalImpl<(width:Int, height:Int)->Void>",
+      "description": "Dispatched whenever the scene's back buffer is resized."
+    },
+    {
+      "name": "onPreDraw",
+      "type": "FlxTypedSignalImpl<()->Void>",
+      "description": "Dispatched right before the scene draws its cameras."
+    },
+    {
+      "name": "onPostDraw",
+      "type": "FlxTypedSignalImpl<()->Void>",
+      "description": "Dispatched right after the scene draws its cameras."
+    }
+  ],
+  "functions": [
+    {
+      "name": "new",
+      "args": [
+        { "name": "width", "type": "Int", "optional": false },
+        { "name": "height", "type": "Int", "optional": false }
+      ],
+      "returns": "FoxScene",
+      "description": "Creates a new FoxScene with the given back buffer size."
+    },
+    {
+      "name": "add",
+      "args": [{ "name": "member", "type": "FoxBasic", "optional": false }],
+      "returns": "FoxBasic",
+      "description": "Adds a member to the scene's foxGroup."
+    },
+    {
+      "name": "insert",
+      "args": [
+        { "name": "pos", "type": "Int", "optional": false },
+        { "name": "member", "type": "FoxBasic", "optional": false }
+      ],
+      "returns": "FoxBasic",
+      "description": "Inserts a member at the given position in foxGroup."
+    },
+    {
+      "name": "remove",
+      "args": [
+        { "name": "member", "type": "FoxBasic", "optional": false },
+        { "name": "splice", "type": "Bool", "optional": true }
+      ],
+      "returns": "FoxBasic",
+      "description": "Removes a member from foxGroup."
+    },
+    {
+      "name": "setupBuffers",
+      "args": [
+        { "name": "width", "type": "Int", "optional": false },
+        { "name": "height", "type": "Int", "optional": false }
+      ],
+      "returns": "Void",
+      "description": "Sets up (or resizes) the scene's default back buffer render target."
+    },
+    {
+      "name": "setOutputDisplay",
+      "args": [
+        { "name": "bufferName", "type": "String", "optional": false },
+        { "name": "colorIdx", "type": "Int", "optional": true }
+      ],
+      "returns": "Void",
+      "description": "Sets which render target and color buffer index will be displayed as the scene's sprite pixels."
+    },
+    {
+      "name": "isOnScreen",
+      "args": [{ "name": "camera", "type": "FlxCamera", "optional": true }],
+      "returns": "Bool",
+      "description": "Always returns true, disabling flixel culling for the scene sprite."
+    },
+    {
+      "name": "update",
+      "args": [{ "name": "elapsed", "type": "Float", "optional": false }],
+      "returns": "Void",
+      "description": "Updates the scene's cameras and every active member of foxGroup, scaled by timeScale."
+    },
+    {
+      "name": "draw",
+      "args": [],
+      "returns": "Void",
+      "description": "Draws every visible camera in the scene, rebuilding draw groups if needed."
+    },
+    {
+      "name": "addDrawGroup",
+      "args": [],
+      "returns": "Int",
+      "description": "Adds a new draw group and returns its index."
+    },
+    {
+      "name": "buildDrawGroups",
+      "args": [],
+      "returns": "Array<FoxDrawTree>",
+      "description": "Computes the draw groups indexed by materials, reducing draw calls and state switches."
+    },
+    {
+      "name": "addToDrawGroups",
+      "args": [
+        { "name": "material", "type": "FoxMaterial", "optional": false },
+        { "name": "mesh", "type": "FoxMesh", "optional": false },
+        { "name": "groups", "type": "Array<Int>", "optional": false },
+        { "name": "member", "type": "FoxModel", "optional": false }
+      ],
+      "returns": "Void",
+      "description": "Adds a material along with a mesh to be drawn by groups, providing a FoxObject for transforms. Intended for internal use."
+    },
+    {
+      "name": "disposeBuffers",
+      "args": [],
+      "returns": "Void",
+      "description": "Destroys and clears every render target on this scene."
+    },
+    {
+      "name": "destroy",
+      "args": [],
+      "returns": "Void",
+      "description": "Destroys every camera, the environment, foxGroup and render targets on this scene."
+    }
+  ]
+}
