@@ -1,0 +1,105 @@
+{
+  "extends": "FoxModel",
+  "statics": [],
+  "members": [
+    {
+      "name": "instanceData",
+      "type": "FoxInstanceData",
+      "description": "The data containing the transforms and colors information for the instances. This is a mat3x4 split into 3 attributes and an extra vec4 buffer for color/custom data."
+    },
+    {
+      "name": "instanceCount",
+      "type": "Int",
+      "description": "The number of instances that will be rendered, applied per mesh. Increasing this value above the previous limit will rebuild instanceData."
+    },
+    {
+      "name": "updateMode",
+      "type": "FoxInstanceUpdateMode",
+      "description": "How instance updates are uploaded to the GPU (ONE_BY_ONE, ALL or CHUNK). ONE_BY_ONE can cause increased API calls with many updating instances; ALL uploads everything at once; CHUNK uploads the updated region only."
+    }
+  ],
+  "functions": [
+    {
+      "name": "new",
+      "args": [
+        { "name": "numInstances", "type": "Int", "optional": true },
+        { "name": "x", "type": "Float", "optional": true },
+        { "name": "y", "type": "Float", "optional": true },
+        { "name": "z", "type": "Float", "optional": true },
+        { "name": "layers", "type": "FoxLayer", "optional": true },
+        { "name": "groups", "type": "Array<Int>", "optional": true },
+        { "name": "culling", "type": "Bool", "optional": true }
+      ],
+      "returns": "FoxInstancedModel",
+      "description": "Creates a new FoxInstancedModel, like FoxModel but designed to render a mesh multiple times, useful for particles or special effects."
+    },
+    {
+      "name": "setInstanceTransform",
+      "args": [
+        { "name": "instance", "type": "Int", "optional": false },
+        { "name": "matrix", "type": "Matrix3D", "optional": false }
+      ],
+      "returns": "Void",
+      "description": "Changes an instance's position, rotation and scale from a matrix. Note: this will not include the last column of the matrix."
+    },
+    {
+      "name": "setInstanceTransformSeparate",
+      "args": [
+        { "name": "instance", "type": "Int", "optional": false },
+        { "name": "position", "type": "Vector3D", "optional": true },
+        { "name": "rotation", "type": "Vector3D", "optional": true },
+        { "name": "scale", "type": "Vector3D", "optional": true }
+      ],
+      "returns": "Void",
+      "description": "Transforms an instance from a set of components."
+    },
+    {
+      "name": "getInstanceTransform",
+      "args": [{ "name": "instance", "type": "Int", "optional": false }],
+      "returns": "Matrix3D",
+      "description": "Extracts a Matrix3D containing the instance transform data. To get position, rotation and scale, use the matrix's decompose()."
+    },
+    {
+      "name": "setInstanceColor",
+      "args": [
+        { "name": "instance", "type": "Int", "optional": false },
+        { "name": "color", "type": "Vector3D", "optional": false }
+      ],
+      "returns": "Void",
+      "description": "Changes the color of an instance in RGBA float. Gets multiplied by vertex colors and a material's color parameter."
+    },
+    {
+      "name": "setInstanceFlxColor",
+      "args": [
+        { "name": "instance", "type": "Int", "optional": false },
+        { "name": "color", "type": "FlxColor", "optional": false }
+      ],
+      "returns": "Void",
+      "description": "Changes the color of an instance using a FlxColor."
+    },
+    {
+      "name": "getInstanceColor",
+      "args": [{ "name": "instance", "type": "Int", "optional": false }],
+      "returns": "Vector3D",
+      "description": "Gets the RGBA float color of an instance."
+    },
+    {
+      "name": "getInstanceFlxColor",
+      "args": [{ "name": "instance", "type": "Int", "optional": false }],
+      "returns": "FlxColor",
+      "description": "Gets the color of an instance as a FlxColor."
+    },
+    {
+      "name": "pushUpdate",
+      "args": [{ "name": "instance", "type": "Int", "optional": false }],
+      "returns": "Void",
+      "description": "Marks an instance as needing a GPU buffer update, according to updateMode."
+    },
+    {
+      "name": "destroy",
+      "args": [],
+      "returns": "Void",
+      "description": "Destroys this model's instance data."
+    }
+  ]
+}

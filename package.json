@@ -2,7 +2,7 @@
   "name": "codename-autocompleter",
   "displayName": "Codename Autocompleter",
   "description": "",
-  "version": "0.7.1",
+  "version": "0.8.0",
   "engines": {
     "vscode": "^1.96.0"
   },
@@ -18,7 +18,8 @@
   "activationEvents": [
     "onLanguage:haxe",
     "onLanguage:xml",
-    "workspaceContains:**/data/config/modpack.ini"
+    "workspaceContains:**/data/config/modpack.ini",
+    "onStartupFinished"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -36,11 +37,12 @@
     "watch:esbuild": "node bundle.js --watch",
     "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
     "vscode:prepublish": "npm run package",
-    "package": "npm run check-types && node bundle.js --production"
+    "package": "npm run check-types && node bundle.js --production",
+    "launch": "npm run compile && node launch.js"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.10",
-    "@types/node": "20.x",
+    "@types/node": "^20.19.43",
     "@types/vscode": "^1.96.0",
     "@typescript-eslint/eslint-plugin": "^8.17.0",
     "@typescript-eslint/parser": "^8.17.0",
@@ -49,5 +51,8 @@
     "esbuild": "^0.24.2",
     "eslint": "^9.16.0",
     "typescript": "^5.7.2"
+  },
+  "allowScripts": {
+    "esbuild@0.24.2": true
   }
 }

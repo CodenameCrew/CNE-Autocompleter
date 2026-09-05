@@ -1,0 +1,175 @@
+{
+  "extends": "FoxBasic",
+  "statics": [],
+  "members": [
+    {
+      "name": "parent",
+      "type": "FoxObject",
+      "description": "If set, will adapt parent transform. Make sure the parent has a higher priority so it updates in order."
+    },
+    {
+      "name": "position",
+      "type": "Vector3D",
+      "description": "The object's local position."
+    },
+    {
+      "name": "rotation",
+      "type": "Vector3D",
+      "description": "The object's local rotation in radians."
+    },
+    {
+      "name": "scale",
+      "type": "Vector3D",
+      "description": "The object's local scale."
+    },
+    {
+      "name": "x",
+      "type": "Float",
+      "description": "Convenience proxy for position.x."
+    },
+    {
+      "name": "y",
+      "type": "Float",
+      "description": "Convenience proxy for position.y."
+    },
+    {
+      "name": "z",
+      "type": "Float",
+      "description": "Convenience proxy for position.z."
+    },
+    {
+      "name": "angleX",
+      "type": "Float",
+      "description": "Rotation on the X axis in degrees. This is a proxy, so operations like += are not supported, use angleX = angleX + 10 instead."
+    },
+    {
+      "name": "angleY",
+      "type": "Float",
+      "description": "Rotation on the Y axis in degrees. This is a proxy, so operations like += are not supported, use angleY = angleY + 10 instead."
+    },
+    {
+      "name": "angleZ",
+      "type": "Float",
+      "description": "Rotation on the Z axis in degrees. This is a proxy, so operations like += are not supported, use angleZ = angleZ + 10 instead."
+    },
+    {
+      "name": "transform",
+      "type": "Matrix3D",
+      "description": "The global transform for this Object, it encodes position, rotation and scale in a 4x4 matrix."
+    },
+    {
+      "name": "globalPosition",
+      "type": "Vector3D",
+      "description": "The object's position in global (world) space."
+    },
+    {
+      "name": "globalRotation",
+      "type": "Vector3D",
+      "description": "The object's rotation in global (world) space."
+    },
+    {
+      "name": "globalScale",
+      "type": "Vector3D",
+      "description": "The object's scale in global (world) space."
+    }
+  ],
+  "functions": [
+    {
+      "name": "new",
+      "args": [
+        { "name": "x", "type": "Float", "optional": true },
+        { "name": "y", "type": "Float", "optional": true },
+        { "name": "z", "type": "Float", "optional": true }
+      ],
+      "returns": "FoxObject",
+      "description": "Creates a new FoxObject at the given position."
+    },
+    {
+      "name": "setPosition",
+      "args": [
+        { "name": "x", "type": "Float", "optional": true },
+        { "name": "y", "type": "Float", "optional": true },
+        { "name": "z", "type": "Float", "optional": true }
+      ],
+      "returns": "Vector3D",
+      "description": "Sets the object's position."
+    },
+    {
+      "name": "setRotation",
+      "args": [
+        { "name": "x", "type": "Float", "optional": true },
+        { "name": "y", "type": "Float", "optional": true },
+        { "name": "z", "type": "Float", "optional": true }
+      ],
+      "returns": "Vector3D",
+      "description": "Sets the object's rotation in radians."
+    },
+    {
+      "name": "setAngle",
+      "args": [
+        { "name": "x", "type": "Float", "optional": true },
+        { "name": "y", "type": "Float", "optional": true },
+        { "name": "z", "type": "Float", "optional": true }
+      ],
+      "returns": "Void",
+      "description": "Same as setRotation() but for angle degrees."
+    },
+    {
+      "name": "setAngleFromVector",
+      "args": [{ "name": "angles", "type": "Vector3D", "optional": false }],
+      "returns": "Void",
+      "description": "Sets the object's angle degrees from a Vector3D."
+    },
+    {
+      "name": "getAngle",
+      "args": [{ "name": "output", "type": "Vector3D", "optional": true }],
+      "returns": "Vector3D",
+      "description": "Gets the object's rotation as degrees, as a Vector3D. Pass an output vector to avoid allocating a new one."
+    },
+    {
+      "name": "setRotationQuaternion",
+      "args": [
+        { "name": "x", "type": "Float", "optional": true },
+        { "name": "y", "type": "Float", "optional": true },
+        { "name": "z", "type": "Float", "optional": true },
+        { "name": "w", "type": "Float", "optional": true }
+      ],
+      "returns": "Vector3D",
+      "description": "Sets the object's rotation from a Quaternion, needed for accurate rotation representation when interpolating."
+    },
+    {
+      "name": "setRotationQuaternionFromVector",
+      "args": [{ "name": "quat", "type": "Vector3D", "optional": false }],
+      "returns": "Vector3D",
+      "description": "Sets the object's rotation from a Quaternion given as a Vector3D (x, y, z, w)."
+    },
+    {
+      "name": "setScale",
+      "args": [
+        { "name": "x", "type": "Float", "optional": true },
+        { "name": "y", "type": "Float", "optional": true },
+        { "name": "z", "type": "Float", "optional": true }
+      ],
+      "returns": "Vector3D",
+      "description": "Sets the object's scale."
+    },
+    {
+      "name": "copyComponentsFrom",
+      "args": [{ "name": "object", "type": "FoxObject", "optional": false }],
+      "returns": "Void",
+      "description": "Copies position, rotation and scale from another FoxObject, so the other object's components don't affect this one when changing them."
+    },
+    {
+      "name": "update",
+      "args": [{ "name": "dt", "type": "Float", "optional": false }],
+      "returns": "Void",
+      "description": "Updates this object's transform matrix, applying parent transforms if any."
+    },
+    {
+      "name": "destroy",
+      "args": [],
+      "returns": "Void",
+      "description": "Destroys this object and clears its parent reference."
+    }
+  ]
+}

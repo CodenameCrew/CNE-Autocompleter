@@ -1,0 +1,171 @@
+{
+  "extends": "FoxObject",
+  "statics": [],
+  "members": [
+    {
+      "name": "layers",
+      "type": "FoxLayer",
+      "description": "Visibility layers for this model, checked against a camera's modelLayers."
+    },
+    {
+      "name": "frustumCulling",
+      "type": "Bool",
+      "description": "Whether this model participates in frustum culling."
+    },
+    {
+      "name": "context",
+      "type": "Context3D",
+      "description": "The Context3D used to render this model."
+    },
+    {
+      "name": "groups",
+      "type": "Array<Int>",
+      "description": "The draw groups from a scene this object will be drawn on. Used to separate meshes in passes. When changing manually, set FoxRenderer.mustRebuildDrawGroups to true. See also addToDrawGroup(), removeFromDrawGroup(), setDrawGroupAt()."
+    },
+    {
+      "name": "meshes",
+      "type": "Array<FoxMesh>",
+      "description": "Meshes that will be rendered by this model, they inherit this model's transform. When changing manually, set FoxRenderer.mustRebuildDrawGroups to true. See also setMeshAt(), addMesh(), removeMesh(), removeMeshByIndex()."
+    },
+    {
+      "name": "materialOverride",
+      "type": "FoxMaterial",
+      "description": "If set, this material will be applied to every mesh of this model when rendering."
+    },
+    {
+      "name": "materialOverlay",
+      "type": "FoxMaterial",
+      "description": "If set, this material will be applied over every mesh of this model, drawing the meshes again using this material."
+    },
+    {
+      "name": "skin",
+      "type": "FoxSkinData",
+      "description": "The skin associated with this mesh, assigned when added to a FoxArmature."
+    },
+    {
+      "name": "castShadows",
+      "type": "Bool",
+      "description": "Whether this model casts shadows (renders in the shadow pass)."
+    },
+    {
+      "name": "castColoredShadows",
+      "type": "Bool",
+      "description": "If true, this model will cast colored shadows, useful for tinted translucent objects (stained glass, liquids, fabric). Requires castShadows to be true. Not implemented yet."
+    }
+  ],
+  "functions": [
+    {
+      "name": "new",
+      "args": [
+        { "name": "x", "type": "Float", "optional": true },
+        { "name": "y", "type": "Float", "optional": true },
+        { "name": "z", "type": "Float", "optional": true },
+        { "name": "layers", "type": "FoxLayer", "optional": true },
+        { "name": "groups", "type": "Array<Int>", "optional": true },
+        { "name": "culling", "type": "Bool", "optional": true }
+      ],
+      "returns": "FoxModel",
+      "description": "Creates a new FoxModel."
+    },
+    {
+      "name": "renderMesh",
+      "args": [
+        { "name": "mesh", "type": "FoxMesh", "optional": false },
+        { "name": "shader", "type": "FoxShader", "optional": false }
+      ],
+      "returns": "Void",
+      "description": "Draws a single mesh with the given shader."
+    },
+    {
+      "name": "isInstanced",
+      "args": [],
+      "returns": "Bool",
+      "description": "Returns whether this model renders instanced (always false for FoxModel, true for FoxInstancedModel)."
+    },
+    {
+      "name": "addMesh",
+      "args": [{ "name": "mesh", "type": "FoxMesh", "optional": false }],
+      "returns": "Void",
+      "description": "Adds a mesh to this model and requests a draw group rebuild."
+    },
+    {
+      "name": "setMeshAt",
+      "args": [
+        { "name": "index", "type": "Int", "optional": false },
+        { "name": "mesh", "type": "FoxMesh", "optional": false }
+      ],
+      "returns": "Void",
+      "description": "Sets the mesh at the given index and requests a draw group rebuild."
+    },
+    {
+      "name": "removeMesh",
+      "args": [{ "name": "mesh", "type": "FoxMesh", "optional": false }],
+      "returns": "Void",
+      "description": "Removes a mesh from this model."
+    },
+    {
+      "name": "removeMeshByIndex",
+      "args": [{ "name": "index", "type": "Int", "optional": false }],
+      "returns": "Void",
+      "description": "Removes a mesh by its index."
+    },
+    {
+      "name": "addToDrawGroup",
+      "args": [{ "name": "group", "type": "Int", "optional": false }],
+      "returns": "Void",
+      "description": "Adds a draw group index to this model."
+    },
+    {
+      "name": "removeFromDrawGroup",
+      "args": [{ "name": "group", "type": "Int", "optional": false }],
+      "returns": "Void",
+      "description": "Removes a draw group index from this model."
+    },
+    {
+      "name": "setDrawGroupAt",
+      "args": [
+        { "name": "index", "type": "Int", "optional": false },
+        { "name": "group", "type": "Int", "optional": false }
+      ],
+      "returns": "Void",
+      "description": "Sets the draw group at the given index."
+    },
+    {
+      "name": "getMaterial",
+      "args": [{ "name": "meshIdx", "type": "Int", "optional": false }],
+      "returns": "FoxMaterial",
+      "description": "Shortcut to get a material from a mesh by index."
+    },
+    {
+      "name": "setMaterial",
+      "args": [
+        { "name": "meshIdx", "type": "Int", "optional": false },
+        { "name": "mat", "type": "FoxMaterial", "optional": false }
+      ],
+      "returns": "Void",
+      "description": "Shortcut to assign a material to a mesh by index."
+    },
+    {
+      "name": "loadJSON",
+      "args": [{ "name": "name", "type": "String", "optional": false }],
+      "returns": "Dynamic",
+      "description": "Loads a FoxLite JSON model and assigns its meshes to this model."
+    },
+    {
+      "name": "loadOBJ",
+      "args": [
+        { "name": "name", "type": "String", "optional": false },
+        { "name": "extraShaderFlags", "type": "Array<String>", "optional": true },
+        { "name": "customShaderPath", "type": "String", "optional": true }
+      ],
+      "returns": "Dynamic",
+      "description": "Loads an OBJ model and assigns its meshes to this model."
+    },
+    {
+      "name": "destroy",
+      "args": [],
+      "returns": "Void",
+      "description": "Destroys this model and clears its meshes."
+    }
+  ]
+}

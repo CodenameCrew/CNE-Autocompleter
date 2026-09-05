@@ -1,0 +1,132 @@
+{
+  "extends": "FoxObject",
+  "statics": [],
+  "members": [
+    {
+      "name": "fov",
+      "type": "Float",
+      "description": "Field of view in degrees. Ignored when orthogonal is true."
+    },
+    {
+      "name": "near",
+      "type": "Float",
+      "description": "Near clipping plane distance."
+    },
+    {
+      "name": "far",
+      "type": "Float",
+      "description": "Far clipping plane distance."
+    },
+    {
+      "name": "aspect",
+      "type": "Float",
+      "description": "Aspect ratio multiplier applied on top of the scene's own aspect ratio."
+    },
+    {
+      "name": "orthogonal",
+      "type": "Bool",
+      "description": "If true, uses an orthogonal projection instead of a perspective one."
+    },
+    {
+      "name": "bgColor",
+      "type": "FlxColor",
+      "description": "The background clear color for this camera."
+    },
+    {
+      "name": "modelLayers",
+      "type": "FoxLayer",
+      "description": "Model visibility layers."
+    },
+    {
+      "name": "passes",
+      "type": "Array<FoxRenderPass>",
+      "description": "Any custom render pass you want for this camera, add them here. By default, there's one pass that renders everything in group 0 on the \"default\" render target. Warning: if you create two cameras, make sure to change the output or it'll overwrite the previous camera render."
+    },
+    {
+      "name": "viewMatrix",
+      "type": "Matrix3D",
+      "description": "The camera's view matrix."
+    },
+    {
+      "name": "projectionMatrix",
+      "type": "Matrix3D",
+      "description": "The camera's projection matrix."
+    },
+    {
+      "name": "doFrustumCulling",
+      "type": "Bool",
+      "description": "Whether frustum culling is enabled for this camera (TODO, not fully implemented)."
+    },
+    {
+      "name": "lightData",
+      "type": "FoxLightData",
+      "description": "The light data associated with this camera. Handles all dynamic lighting visible by this camera, including ambient light. Normally handled internally by the camera and scene lights."
+    },
+    {
+      "name": "environment",
+      "type": "FoxEnvironment",
+      "description": "If set, this camera will use a custom environment."
+    }
+  ],
+  "functions": [
+    {
+      "name": "new",
+      "args": [
+        { "name": "x", "type": "Float", "optional": true },
+        { "name": "y", "type": "Float", "optional": true },
+        { "name": "z", "type": "Float", "optional": true },
+        { "name": "_bgColor", "type": "FlxColor", "optional": true },
+        { "name": "ortho", "type": "Bool", "optional": true }
+      ],
+      "returns": "FoxCamera",
+      "description": "Creates a new FoxCamera."
+    },
+    {
+      "name": "update",
+      "args": [{ "name": "dt", "type": "Float", "optional": false }],
+      "returns": "Void",
+      "description": "Updates the camera's view and projection matrices."
+    },
+    {
+      "name": "render",
+      "args": [{ "name": "drawGroups", "type": "Array<FoxDrawTree>", "optional": false }],
+      "returns": "Void",
+      "description": "Renders every enabled pass on this camera for the given draw groups."
+    },
+    {
+      "name": "destroy",
+      "args": [],
+      "returns": "Void",
+      "description": "Destroys the camera and its light data."
+    },
+    {
+      "name": "getScreenPoint",
+      "args": [{ "name": "point", "type": "Vector3D", "optional": false }],
+      "returns": "Vector3D",
+      "description": "Projects a world-space 3D point to Normalized Device Coordinate (NDC, aka Screen-Space Position). Note: the center is at (0,0) instead of (0.5, 0.5); use toFlixelScreenPoint() for flixel coordinates. Values are unclamped."
+    },
+    {
+      "name": "toFlixelScreenPoint",
+      "args": [
+        { "name": "point", "type": "Vector3D", "optional": false },
+        { "name": "screenWidth", "type": "Float", "optional": false },
+        { "name": "screenHeight", "type": "Float", "optional": false },
+        { "name": "output", "type": "Vector2", "optional": true }
+      ],
+      "returns": "Vector2",
+      "description": "Converts an NDC point (from getScreenPoint) into flixel screen coordinates."
+    },
+    {
+      "name": "getWorldSpace",
+      "args": [{ "name": "point", "type": "Vector3D", "optional": false }],
+      "returns": "Vector3D",
+      "description": "Re-projects a screen-space point to world space, useful for point-and-click in 3D with raycast."
+    },
+    {
+      "name": "loadPassesFromAsset",
+      "args": [{ "name": "name", "type": "String", "optional": false }],
+      "returns": "Void",
+      "description": "Loads and assigns render passes from an asset."
+    }
+  ]
+}

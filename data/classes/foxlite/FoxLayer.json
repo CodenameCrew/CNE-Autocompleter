@@ -1,0 +1,57 @@
+{
+  "statics": [
+    {
+      "name": "ALL",
+      "type": "Int",
+      "description": "Precomputed hash matching every one of the 32 available layers (0 to 31)."
+    }
+  ],
+  "members": [],
+  "functions": [
+    {
+      "name": "get",
+      "args": [{ "name": "layers", "type": "Array<Int>", "optional": false }],
+      "returns": "FoxLayer",
+      "description": "Calculates a layer hash based on an array of layer numbers."
+    },
+    {
+      "name": "layer",
+      "args": [{ "name": "layer", "type": "Int", "optional": false }],
+      "returns": "FoxLayer",
+      "description": "Calculates a layer hash for a single layer number."
+    },
+    {
+      "name": "fromRadix2String",
+      "args": [{ "name": "layers", "type": "String", "optional": false }],
+      "returns": "FoxLayer",
+      "description": "Calculates a layer hash based on a string sequence of 1s and 0s, read from right to left."
+    },
+    {
+      "name": "add",
+      "args": [
+        { "name": "a", "type": "FoxLayer", "optional": false },
+        { "name": "b", "type": "FoxLayer", "optional": false }
+      ],
+      "returns": "FoxLayer",
+      "description": "Adds layers B into hash A."
+    },
+    {
+      "name": "remove",
+      "args": [
+        { "name": "a", "type": "FoxLayer", "optional": false },
+        { "name": "b", "type": "FoxLayer", "optional": false }
+      ],
+      "returns": "FoxLayer",
+      "description": "Removes layers B from hash A."
+    },
+    {
+      "name": "check",
+      "args": [
+        { "name": "a", "type": "FoxLayer", "optional": false },
+        { "name": "b", "type": "FoxLayer", "optional": false }
+      ],
+      "returns": "Bool",
+      "description": "Checks if layer or layers B are present in group A."
+    }
+  ]
+}

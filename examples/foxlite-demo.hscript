@@ -1,0 +1,49 @@
+// Example Codename Engine hscript using FoxLite, e.g. a custom 3D stage background.
+// hscript files have no `class`/`package` wrapper: everything below runs directly in the
+// context of whatever loads this script (a stage, a character, a state), which is why
+// `add(scene)` below can call the host object's own add() without qualifying it.
+//
+// Try it out: hover over FoxScene/FoxCamera/FoxModel, or type `scene.`, `camera.`, `cube.`,
+// or `FoxLayer.` to see completions from the FoxLite class data.
+
+import foxlite.FoxScene;
+import foxlite.FoxCamera;
+import foxlite.FoxModel;
+import foxlite.FoxLayer;
+import foxlite.FoxCache;
+
+var scene:FoxScene;
+var camera:FoxCamera;
+var cube:FoxModel;
+
+function create() {
+	scene = new FoxScene(FlxG.width, FlxG.height);
+
+	camera = new FoxCamera(0, 0, -10);
+	camera.fov = 75;
+	camera.near = 0.1;
+	camera.far = 500;
+	scene.foxCameras.push(camera);
+	scene.add(camera);
+
+	cube = new FoxModel(0, 0, 0, FoxLayer.get([0]));
+	cube.loadOBJ("stages/mystage/models/cube");
+	cube.castShadows = true;
+	scene.add(cube);
+
+	add(scene);
+}
+
+function update(elapsed:Float) {
+	cube.angleY += 45 * elapsed;
+	scene.update(elapsed);
+}
+
+function beatHit(curBeat:Int) {
+	camera.fov = (curBeat % 4 == 0) ? 80 : 75;
+}
+
+function destroy() {
+	scene.destroy();
+	FoxCache.cleanup();
+}

@@ -1,0 +1,45 @@
+{
+  "statics": [],
+  "members": [
+    {
+      "name": "members",
+      "type": "FoxGroup",
+      "description": "The group of FoxBasics this offline scene updates."
+    }
+  ],
+  "functions": [
+    {
+      "name": "add",
+      "args": [{ "name": "member", "type": "FoxBasic", "optional": false }],
+      "returns": "Void",
+      "description": "Adds a member to this offline scene."
+    },
+    {
+      "name": "insert",
+      "args": [
+        { "name": "pos", "type": "Int", "optional": false },
+        { "name": "member", "type": "FoxBasic", "optional": false }
+      ],
+      "returns": "Void",
+      "description": "Inserts a member at the given position."
+    },
+    {
+      "name": "remove",
+      "args": [{ "name": "member", "type": "FoxBasic", "optional": false }],
+      "returns": "Void",
+      "description": "Removes a member from this offline scene."
+    },
+    {
+      "name": "update",
+      "args": [{ "name": "elapsed", "type": "Float", "optional": false }],
+      "returns": "Void",
+      "description": "Updates every member in this offline scene. Like FoxScene, but no rendering ever happens, useful for classes that only need updating by foxlite (such as FoxAnimationPlayer)."
+    },
+    {
+      "name": "destroy",
+      "args": [],
+      "returns": "Void",
+      "description": "Destroys every member and this offline scene."
+    }
+  ]
+}
